@@ -1,0 +1,1519 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>सनातन रहस्य — पुराण, देवी-देवता और ब्रह्मांड के रहस्य</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Tiro+Devanagari+Hindi&family=Mukta:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg-void: #0b0714;
+    --bg-panel: #140f22;
+    --bg-panel-raised: #1b1430;
+    --gold: #c9973f;
+    --gold-soft: #e3c589;
+    --maroon: #5c1a3d;
+    --text-parchment: #ece2cf;
+    --text-dim: #9a8fae;
+    --border-glow: rgba(201,151,63,0.25);
+    --star: rgba(236,226,207,0.55);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background: radial-gradient(ellipse at 20% 0%, #1c1330 0%, var(--bg-void) 55%);
+    color: var(--text-parchment);
+    font-family: 'Mukta', 'Tiro Devanagari Hindi', sans-serif;
+    min-height:100vh;
+    position:relative;
+    overflow-x:hidden;
+  }
+  h1,h2,h3, .devanagari-display{
+    font-family: 'Tiro Devanagari Hindi', serif;
+    font-weight:400;
+  }
+  .stars{
+    position:fixed; inset:0; z-index:0; pointer-events:none;
+    background-image:
+      radial-gradient(1px 1px at 10% 20%, var(--star), transparent),
+      radial-gradient(1px 1px at 80% 10%, var(--star), transparent),
+      radial-gradient(1px 1px at 55% 65%, var(--star), transparent),
+      radial-gradient(1.5px 1.5px at 30% 80%, var(--star), transparent),
+      radial-gradient(1px 1px at 90% 75%, var(--star), transparent),
+      radial-gradient(1px 1px at 65% 30%, var(--star), transparent),
+      radial-gradient(1.5px 1.5px at 15% 55%, var(--star), transparent),
+      radial-gradient(1px 1px at 40% 15%, var(--star), transparent);
+    background-repeat: repeat;
+    background-size: 600px 600px;
+    opacity:0.5;
+  }
+  header{
+    position:relative; z-index:2;
+    padding: 44px 24px 28px;
+    text-align:center;
+    border-bottom: 1px solid var(--border-glow);
+  }
+  .om{ font-size: 2.2rem; color: var(--gold); margin-bottom: 6px; letter-spacing: 2px; }
+  header h1{
+    font-size: clamp(1.8rem, 6vw, 3rem);
+    margin: 0 0 8px;
+    color: var(--gold-soft);
+    text-shadow: 0 0 24px rgba(201,151,63,0.35);
+  }
+  header p.tagline{ color: var(--text-dim); font-size: 1rem; max-width: 560px; margin: 0 auto; line-height:1.6; }
+
+  nav.tabs{
+    position: sticky; top:0; z-index: 10;
+    display:flex; justify-content:center; gap: 6px;
+    background: rgba(11,7,20,0.9);
+    backdrop-filter: blur(6px);
+    padding: 12px 12px;
+    border-bottom: 1px solid var(--border-glow);
+    flex-wrap: wrap;
+  }
+  nav.tabs button{
+    background: transparent; border: 1px solid transparent; color: var(--text-dim);
+    font-family: inherit; font-size: 0.92rem; padding: 7px 14px; border-radius: 999px; cursor:pointer;
+    transition: color .2s ease, border-color .2s ease, background .2s ease;
+  }
+  nav.tabs button:hover{ color: var(--gold-soft); }
+  nav.tabs button.active{ color: var(--bg-void); background: var(--gold-soft); border-color: var(--gold-soft); font-weight:600; }
+
+  main{ position:relative; z-index:2; max-width: 920px; margin: 0 auto; padding: 28px 20px 80px; }
+  .search-row{ margin-bottom: 24px; }
+  .search-row input{
+    width:100%; padding: 12px 16px; background: var(--bg-panel); border: 1px solid var(--border-glow);
+    color: var(--text-parchment); border-radius: 10px; font-family: inherit; font-size: 1rem; outline:none;
+  }
+  .search-row input::placeholder{ color: var(--text-dim); }
+  .search-row input:focus{ border-color: var(--gold); }
+
+  section.view{ display:none; }
+  section.view.active{ display:block; }
+
+  .intro-block{
+    color: var(--text-dim); line-height: 1.8; margin-bottom: 24px; font-size: 1rem;
+    border-left: 2px solid var(--maroon); padding-left: 16px;
+  }
+
+  .grid{ display:grid; grid-template-columns: 1fr; gap: 14px; }
+
+  .card{
+    background: linear-gradient(160deg, var(--bg-panel-raised), var(--bg-panel));
+    border: 1px solid var(--border-glow); border-radius: 14px; overflow: hidden;
+    transition: border-color .2s ease;
+  }
+  .card:hover{ border-color: var(--gold); }
+  .card-head{ display:flex; justify-content:space-between; align-items:center; padding: 16px 20px; cursor:pointer; gap: 12px; }
+  .card-head h3{ margin:0; font-size: 1.15rem; color: var(--gold-soft); }
+  .card-head .meta{ font-size: 0.82rem; color: var(--text-dim); margin-top:4px; font-family:'Mukta',sans-serif; }
+  .card-head .chevron{ color: var(--gold); font-size: 1.2rem; flex-shrink:0; transition: transform .25s ease; }
+  .card.open .chevron{ transform: rotate(180deg); }
+  .card-body{ max-height:0; overflow:hidden; transition: max-height .35s ease; padding: 0 20px; }
+  .card.open .card-body{ padding: 0 20px 20px; }
+  .card-body p{ line-height: 1.85; color: var(--text-parchment); font-size: 1rem; margin: 0 0 10px; }
+  .card-body .rahasya-line{
+    color: var(--gold-soft); border-top: 1px dashed var(--border-glow); padding-top: 12px; margin-top: 12px; font-size: 0.95rem;
+  }
+  .card-body .bhakt-line{
+    color: var(--text-parchment); background: rgba(92,26,61,0.25); border-radius: 8px; padding: 10px 12px; margin-top: 10px; font-size: 0.95rem;
+  }
+
+  footer{ text-align:center; color: var(--text-dim); font-size: 0.85rem; padding: 30px 20px 50px; position:relative; z-index:2; }
+  .hidden{ display:none !important; }
+
+  @media (min-width: 700px){ .grid{ grid-template-columns: 1fr 1fr; } }
+  @media (prefers-reduced-motion: reduce){ .card-body, .card .chevron{ transition: none; } }
+
+/* ===== INTRO PORTAL OVERLAY ===== */
+#introOverlay{
+  position:fixed; inset:0; z-index:9999;
+  background: radial-gradient(circle at 50% 50%, #1c1330 0%, #05030a 70%);
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  transition: opacity 1s ease, visibility 1s ease;
+}
+#introOverlay.hide{ opacity:0; visibility:hidden; pointer-events:none; }
+.intro-portal{ position:relative; width:180px; height:180px; display:flex; align-items:center; justify-content:center; }
+.intro-ring{
+  position:absolute; border-radius:50%;
+  border: 1px solid var(--gold);
+  width:100%; height:100%;
+  opacity:0.6;
+  animation: ringPulse 2.4s ease-out infinite;
+}
+.intro-ring.ring2{ animation-delay: 1.2s; }
+@keyframes ringPulse{
+  0%{ transform:scale(0.3); opacity:0.9; }
+  100%{ transform:scale(1.4); opacity:0; }
+}
+.intro-om{
+  font-size: 4rem; color: var(--gold-soft);
+  text-shadow: 0 0 30px var(--gold), 0 0 60px rgba(201,151,63,0.6);
+  animation: omBreathe 2.4s ease-in-out infinite;
+}
+@keyframes omBreathe{
+  0%,100%{ transform:scale(1); opacity:0.85; }
+  50%{ transform:scale(1.15); opacity:1; }
+}
+.intro-text{
+  margin-top: 24px; color: var(--text-dim); letter-spacing:2px; font-size:0.95rem;
+  animation: fadeFlicker 1.8s ease-in-out infinite;
+}
+@keyframes fadeFlicker{ 0%,100%{opacity:0.5;} 50%{opacity:1;} }
+
+/* ===== CURSOR TRAIL ===== */
+#cursorTrailLayer{ position:fixed; inset:0; pointer-events:none; z-index:5; }
+.trail-spark{
+  position:fixed; width:5px; height:5px; border-radius:50%;
+  background: radial-gradient(circle, var(--gold-soft), transparent 70%);
+  pointer-events:none;
+  animation: sparkFade 0.9s ease-out forwards;
+}
+@keyframes sparkFade{
+  0%{ opacity:0.9; transform:scale(1); }
+  100%{ opacity:0; transform:scale(0.2) translateY(-14px); }
+}
+
+/* ===== SHOOTING STAR ===== */
+.shooting-star{
+  position:fixed; top:0; left:0; width:2px; height:2px;
+  background: var(--gold-soft);
+  border-radius:50%;
+  box-shadow: 0 0 6px 2px rgba(227,197,137,0.8);
+  z-index:1; pointer-events:none;
+  animation: shoot 1.4s linear forwards;
+}
+@keyframes shoot{
+  0%{ transform: translate(0,0); opacity:1; }
+  100%{ transform: translate(-420px, 420px); opacity:0; }
+}
+
+/* ===== HEADER EXTRAS ===== */
+.header-extras{
+  display:flex; justify-content:center; gap:12px; margin-top:18px; flex-wrap:wrap;
+}
+.rahasya-btn{
+  background: linear-gradient(120deg, var(--maroon), var(--bg-panel-raised));
+  border:1px solid var(--gold); color: var(--gold-soft);
+  padding: 8px 16px; border-radius: 999px; cursor:pointer;
+  font-family:inherit; font-size:0.85rem;
+  box-shadow: 0 0 14px rgba(201,151,63,0.25);
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+.rahasya-btn:hover{ transform: translateY(-2px); box-shadow: 0 0 22px rgba(201,151,63,0.45); }
+.streak-badge{
+  color: var(--text-dim); font-size:0.85rem; padding: 8px 14px;
+  border: 1px dashed var(--border-glow); border-radius: 999px;
+}
+
+/* ===== FAVORITE STAR ON CARDS ===== */
+.fav-btn{
+  background:none; border:none; cursor:pointer; font-size:1.15rem;
+  color: var(--text-dim); transition: color .2s ease, transform .2s ease;
+  padding: 2px 4px; line-height:1;
+}
+.fav-btn.active{ color: var(--gold); text-shadow: 0 0 10px rgba(201,151,63,0.7); }
+.fav-btn:hover{ transform: scale(1.2); }
+.card-head-actions{ display:flex; align-items:center; gap:10px; }
+
+/* ===== SCROLL REVEAL ===== */
+.card{ opacity:0; transform: translateY(18px); transition: opacity .6s ease, transform .6s ease, border-color .2s ease; }
+.card.revealed{ opacity:1; transform: translateY(0); }
+
+/* ===== RAHASYA MODAL (Aaj ka Rahasya) ===== */
+#rahasyaModal{
+  position:fixed; inset:0; z-index:2000; display:none;
+  align-items:center; justify-content:center;
+  background: rgba(5,3,10,0.85); backdrop-filter: blur(4px);
+  padding: 20px;
+}
+#rahasyaModal.open{ display:flex; }
+.modal-box{
+  max-width: 480px; width:100%;
+  max-height: 82vh;
+  background: linear-gradient(160deg, var(--bg-panel-raised), var(--bg-void));
+  border: 1px solid var(--gold); border-radius: 16px;
+  padding: 28px 24px; position:relative;
+  box-shadow: 0 0 40px rgba(201,151,63,0.35);
+  display:flex; flex-direction:column;
+}
+.modal-scroll-content{ overflow-y:auto; padding-right:4px; }
+.modal-box h3{ color: var(--gold-soft); margin-top:0; font-size:1.3rem; }
+.modal-box p{ line-height:1.85; color: var(--text-parchment); }
+.modal-close{
+  position:absolute; top:12px; right:16px; background:none; border:none;
+  color: var(--text-dim); font-size:1.4rem; cursor:pointer;
+}
+.modal-close:hover{ color: var(--gold-soft); }
+
+.empty-fav{ color: var(--text-dim); text-align:center; padding: 30px 10px; font-size:0.95rem; }
+
+/* ===== TOPBAR + SUPER MENU (SIDE DRAWER) ===== */
+.topbar{
+  position: sticky; top:0; z-index: 15;
+  background: rgba(11,7,20,0.92); backdrop-filter: blur(6px);
+  border-bottom: 1px solid var(--border-glow);
+  padding: 12px 16px;
+  display:flex; align-items:center;
+}
+.menu-toggle{
+  background: linear-gradient(120deg, var(--bg-panel-raised), var(--bg-panel));
+  border: 1px solid var(--gold); color: var(--gold-soft);
+  padding: 9px 16px; border-radius: 999px; cursor:pointer;
+  font-family:inherit; font-size:0.95rem; font-weight:600;
+  display:flex; align-items:center; gap:8px;
+  box-shadow: 0 0 14px rgba(201,151,63,0.2);
+}
+.menu-toggle:hover{ box-shadow: 0 0 20px rgba(201,151,63,0.4); }
+
+#menuOverlay{
+  position:fixed; inset:0; z-index:20;
+  background: rgba(5,3,10,0.7); backdrop-filter: blur(2px);
+  opacity:0; visibility:hidden; transition: opacity .3s ease, visibility .3s ease;
+}
+#menuOverlay.open{ opacity:1; visibility:visible; }
+
+.side-drawer{
+  position:fixed; top:0; left:0; bottom:0; z-index:21;
+  width: 280px; max-width: 82vw;
+  background: linear-gradient(180deg, #180f28, var(--bg-void));
+  border-right: 1px solid var(--gold);
+  box-shadow: 8px 0 30px rgba(0,0,0,0.5);
+  transform: translateX(-105%);
+  transition: transform .35s ease;
+  overflow-y: auto;
+  padding-bottom: 30px;
+}
+.side-drawer.open{ transform: translateX(0); }
+
+.drawer-header{
+  display:flex; justify-content:space-between; align-items:center;
+  padding: 20px 18px 16px;
+  border-bottom: 1px solid var(--border-glow);
+  color: var(--gold-soft); font-family:'Tiro Devanagari Hindi', serif; font-size:1.15rem;
+}
+.drawer-header button{
+  background:none; border:none; color: var(--text-dim); font-size:1.3rem; cursor:pointer;
+}
+.drawer-header button:hover{ color: var(--gold-soft); }
+
+.drawer-group{ padding: 14px 12px 4px; border-bottom: 1px solid rgba(201,151,63,0.1); }
+.drawer-group-title{
+  color: var(--text-dim); font-size:0.78rem; text-transform:uppercase; letter-spacing:1px;
+  padding: 0 8px 8px;
+}
+.drawer-group .tab-btn{
+  display:block; width:100%; text-align:right; background:none; border:none;
+  color: var(--text-parchment); font-family:inherit; font-size:0.98rem;
+  padding: 11px 10px; border-radius: 8px; cursor:pointer;
+  transition: background .2s ease, color .2s ease;
+}
+.drawer-group .tab-btn:hover{ background: rgba(201,151,63,0.1); color: var(--gold-soft); }
+.drawer-group .tab-btn.active{
+  background: rgba(201,151,63,0.18); color: var(--gold-soft); font-weight:600;
+  border-right: 3px solid var(--gold);
+}
+
+/* ===== GALLERY ===== */
+.gallery-toolbar{ margin-bottom: 20px; }
+.gallery-grid{ grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
+.photo-card{
+  background: var(--bg-panel-raised); border: 1px solid var(--border-glow);
+  border-radius: 14px; overflow:hidden; opacity:0; transform: translateY(14px);
+  transition: opacity .5s ease, transform .5s ease, border-color .2s ease;
+}
+.photo-card.revealed{ opacity:1; transform: translateY(0); }
+.photo-card:hover{ border-color: var(--gold); }
+.photo-card img{ width:100%; height:150px; object-fit:cover; display:block; }
+.photo-card video{ width:100%; height:150px; object-fit:cover; display:block; background:#000; }
+.photo-card-body{ padding: 10px 12px; }
+.photo-caption-input{
+  width:100%; background:transparent; border:none; border-bottom:1px dashed var(--border-glow);
+  color: var(--text-parchment); font-family:inherit; font-size:0.9rem; padding: 4px 0; outline:none;
+}
+.photo-caption-input:focus{ border-color: var(--gold); }
+.photo-actions{ display:flex; justify-content:space-between; margin-top:8px; gap:4px; flex-wrap:wrap; }
+.photo-actions button{
+  background:none; border:1px solid var(--border-glow); color: var(--text-dim);
+  border-radius:6px; padding:4px 7px; font-size:0.85rem; cursor:pointer;
+}
+.photo-actions button:hover{ color: var(--gold-soft); border-color: var(--gold); }
+.header-photo-frame{
+  width:100px; height:100px; border-radius:50%; overflow:hidden; margin: 0 auto 10px;
+  border: 2px solid var(--gold); box-shadow: 0 0 20px rgba(201,151,63,0.4);
+}
+.header-photo-frame img{ width:100%; height:100%; object-fit:cover; }
+.empty-gallery{ color: var(--text-dim); text-align:center; padding: 30px 10px; font-size:0.95rem; grid-column: 1 / -1; }
+
+/* ===== PERSONAL PRIVATE SECTION ===== */
+.lock-box{
+  max-width: 360px; margin: 40px auto; text-align:center;
+  background: var(--bg-panel-raised); border: 1px solid var(--gold);
+  border-radius: 16px; padding: 30px 22px;
+}
+.lock-box .lock-icon{ font-size: 2.4rem; margin-bottom: 10px; }
+.lock-box h3{ color: var(--gold-soft); margin: 0 0 8px; }
+.lock-box p{ color: var(--text-dim); font-size:0.9rem; margin-bottom: 18px; }
+.pin-input{
+  width: 100%; text-align:center; letter-spacing: 8px; font-size:1.3rem;
+  background: var(--bg-panel); border: 1px solid var(--border-glow); color: var(--text-parchment);
+  border-radius: 10px; padding: 12px; margin-bottom: 12px; font-family: inherit; outline:none;
+}
+.pin-input:focus{ border-color: var(--gold); }
+.lock-error{ color: #d98484; font-size:0.85rem; min-height: 18px; margin-bottom:6px; }
+
+.personal-form{
+  background: var(--bg-panel); border: 1px solid var(--border-glow); border-radius:14px;
+  padding: 16px; margin-bottom: 20px;
+}
+.personal-input, .personal-textarea{
+  width:100%; background: var(--bg-panel-raised); border: 1px solid var(--border-glow);
+  color: var(--text-parchment); border-radius: 10px; padding: 10px 12px; margin-bottom: 10px;
+  font-family: inherit; font-size: 0.98rem; outline:none; resize: vertical;
+}
+.personal-input:focus, .personal-textarea:focus{ border-color: var(--gold); }
+.personal-form-actions{ display:flex; gap:10px; }
+.personal-note-card{
+  background: linear-gradient(160deg, var(--bg-panel-raised), var(--bg-panel));
+  border: 1px solid var(--border-glow); border-radius: 14px; padding: 16px 18px;
+  opacity:0; transform: translateY(14px); transition: opacity .5s ease, transform .5s ease, border-color .2s ease;
+}
+.personal-note-card.revealed{ opacity:1; transform: translateY(0); }
+.personal-note-card h3{ color: var(--gold-soft); margin: 0 0 6px; font-size:1.1rem; }
+.personal-note-card .note-date{ color: var(--text-dim); font-size:0.78rem; margin-bottom: 8px; }
+.personal-note-card p{ color: var(--text-parchment); line-height:1.7; white-space: pre-wrap; margin: 0 0 10px; }
+.personal-note-card .note-delete{
+  background:none; border:1px solid var(--border-glow); color: var(--text-dim);
+  border-radius:6px; padding:4px 10px; font-size:0.85rem; cursor:pointer;
+}
+.personal-note-card .note-delete:hover{ color: #d98484; border-color: #d98484; }
+.empty-personal{ color: var(--text-dim); text-align:center; padding: 20px 10px; font-size:0.9rem; }
+
+.pin-gate-overlay{
+  position:fixed; inset:0; z-index:2100; display:none;
+  align-items:center; justify-content:center;
+  background: rgba(5,3,10,0.85); backdrop-filter: blur(4px);
+  padding: 20px;
+}
+.pin-gate-overlay.open{ display:flex; }
+.pin-gate-overlay .lock-box{ margin:0; }
+
+/* ===== JAPA COUNTER ===== */
+.japa-box{ display:flex; flex-direction:column; align-items:center; padding: 20px 0 40px; }
+.japa-count{
+  font-size: 3.4rem; color: var(--gold-soft); font-family:'Tiro Devanagari Hindi', serif;
+  text-shadow: 0 0 20px rgba(201,151,63,0.4); margin-bottom: 4px;
+}
+.japa-rounds{ color: var(--text-dim); font-size:0.95rem; margin-bottom: 30px; }
+.japa-tap-btn{
+  width: 190px; height: 190px; border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #2a1d47, var(--bg-void));
+  border: 2px solid var(--gold); color: var(--gold-soft);
+  font-size: 3.2rem; cursor:pointer; margin-bottom: 26px;
+  box-shadow: 0 0 30px rgba(201,151,63,0.3), inset 0 0 20px rgba(201,151,63,0.15);
+  transition: transform .08s ease, box-shadow .2s ease;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+}
+.japa-tap-btn:active{ transform: scale(0.94); box-shadow: 0 0 45px rgba(201,151,63,0.55), inset 0 0 25px rgba(201,151,63,0.25); }
+.japa-tap-label{ font-size:0.85rem; color: var(--text-dim); font-family:'Mukta',sans-serif; margin-top:6px; }
+.personal-attach-row{ display:flex; gap:10px; margin-bottom:10px; flex-wrap:wrap; }
+.personal-attach-preview{ margin-bottom: 10px; }
+.attach-chip{
+  display:inline-flex; align-items:center; gap:8px;
+  background: rgba(201,151,63,0.12); border: 1px solid var(--border-glow);
+  border-radius: 10px; padding: 6px 10px; margin-right:8px; margin-bottom:6px; font-size:0.85rem; color: var(--text-parchment);
+}
+.attach-chip img{ width:32px; height:32px; object-fit:cover; border-radius:6px; }
+.attach-chip button{
+  background:none; border:none; color: var(--text-dim); cursor:pointer; font-size:1rem;
+}
+.attach-chip button:hover{ color:#d98484; }
+.personal-note-card img.note-photo{ width:100%; border-radius:10px; margin-bottom:10px; display:block; }
+.personal-note-card video.note-video{ width:100%; border-radius:10px; margin-bottom:10px; display:block; }
+
+</style>
+</head>
+<body>
+<div id="introOverlay">
+  <div class="intro-portal">
+    <div class="intro-ring"></div>
+    <div class="intro-ring ring2"></div>
+    <div class="intro-om">ॐ</div>
+  </div>
+  <div class="intro-text">रहस्य लोक में प्रवेश हो रहा है...</div>
+</div>
+<div id="cursorTrailLayer"></div>
+<div class="stars"></div>
+
+<header>
+  <div class="header-photo-frame" id="headerPhotoFrame" style="display:none;"><img id="headerPhotoImg" alt=""></div>
+  <div class="om">ॐ</div>
+  <h1>सनातन रहस्य</h1>
+  <p class="tagline">पुराणों, ग्रंथों, देवी-देवताओं और ब्रह्मांड की गहराई में छुपे रहस्य — तथा मनुष्य के भीतर सोई हुई असीम शक्ति की कथाएं।</p>
+  <div class="header-extras">
+    <button class="rahasya-btn" id="randomRahasyaBtn">🔮 आज का रहस्य</button>
+    <button class="rahasya-btn" id="soundToggleBtn">🔇 ध्वनि चालू करें</button>
+    <span class="streak-badge" id="streakBadge"></span>
+  </div>
+</header>
+
+<div class="topbar">
+  <button id="menuToggleBtn" class="menu-toggle">☰ <span id="currentSectionLabel">पुराण</span></button>
+</div>
+<div id="menuOverlay"></div>
+<nav id="sideDrawer" class="side-drawer">
+  <div class="drawer-header">
+    <span>ॐ सनातन रहस्य</span>
+    <button id="drawerCloseBtn">✕</button>
+  </div>
+
+  <div class="drawer-group">
+    <div class="drawer-group-title">📖 शास्त्र</div>
+    <button class="tab-btn active" data-view="puranas">पुराण</button>
+    <button class="tab-btn" data-view="granth">अन्य ग्रंथ (वेद-उपनिषद-रामायण)</button>
+  </div>
+
+  <div class="drawer-group">
+    <div class="drawer-group-title">🙏 आराध्य</div>
+    <button class="tab-btn" data-view="devta">देवी-देवता और उनके भक्त</button>
+    <button class="tab-btn" data-view="bhaktcharit">महान भक्तों का जीवन</button>
+  </div>
+
+  <div class="drawer-group">
+    <div class="drawer-group-title">🌌 रहस्य लोक</div>
+    <button class="tab-btn" data-view="rahasya">ब्रह्मांड रहस्य</button>
+    <button class="tab-btn" data-view="gyan">गूढ़ ज्ञान</button>
+    <button class="tab-btn" data-view="gupt">अति गुप्त रहस्य</button>
+    <button class="tab-btn" data-view="tantra">तंत्र ज्ञान</button>
+  </div>
+
+  <div class="drawer-group">
+    <div class="drawer-group-title">⏳ काल और मनुष्य</div>
+    <button class="tab-btn" data-view="yug">काल और युग</button>
+    <button class="tab-btn" data-view="manav">मानव रहस्य</button>
+    <button class="tab-btn" data-view="jeevan">जीवन में उतारो</button>
+    <button class="tab-btn" data-view="japa">📿 जप काउंटर</button>
+  </div>
+
+  <div class="drawer-group">
+    <button class="tab-btn" data-view="gallery">🖼️ मेरी गैलरी</button>
+    <button class="tab-btn" data-view="personal">🔒 मेरी अपनी बातें</button>
+    <button class="tab-btn" data-view="fav">⭐ मेरे पसंदीदा</button>
+  </div>
+</nav>
+
+<main>
+  <div class="search-row">
+    <input type="text" id="searchInput" placeholder="खोजें… जैसे 'शिव', 'हनुमान', 'सृष्टि'">
+  </div>
+
+  <section class="view active" id="view-puranas" data-searchable>
+    <p class="intro-block">अठारह महापुराण सनातन ज्ञान के विशाल भंडार हैं। यहाँ प्रमुख पुराणों का सार सरल हिंदी में दिया गया है — हर एक में छुपी एक अलग दृष्टि, एक अलग रहस्य।</p>
+    <div class="grid" id="puranaGrid"></div>
+  </section>
+
+  <section class="view" id="view-granth" data-searchable>
+    <p class="intro-block">पुराणों के अतिरिक्त वेद, उपनिषद, रामायण और महाभारत जैसे ग्रंथ भी सनातन ज्ञान की नींव हैं। इनमें दर्शन, कर्तव्य और आत्मज्ञान की गहरी बातें छुपी हैं।</p>
+    <div class="grid" id="granthGrid"></div>
+  </section>
+
+  <section class="view" id="view-devta" data-searchable>
+    <p class="intro-block">हर देवी-देवता के साथ उनके भक्तों की कथा जुड़ी है — यह दिखाते हुए कि सच्ची भक्ति और समर्पण से एक साधारण मनुष्य भी असाधारण बन सकता है।</p>
+    <div class="grid" id="devtaGrid"></div>
+  </section>
+
+  <section class="view" id="view-rahasya" data-searchable>
+    <p class="intro-block">ये वे रहस्य हैं जिन पर ऋषियों ने सदियों मनन किया — सृष्टि का आरंभ, पृथ्वी की संरचना, और वह सब जो दिखाई नहीं देता पर अस्तित्व में है।</p>
+    <div class="grid" id="rahasyaGrid"></div>
+  </section>
+
+  <section class="view" id="view-yug" data-searchable>
+    <p class="intro-block">काल अनंत है, पर पुराणों में इसे चक्रों में बांधा गया है — चार युग, हजारों वर्षों के कल्प, और एक ऐसा गणित जो आज के विज्ञान को भी सोचने पर मजबूर करता है।</p>
+    <div class="grid" id="yugGrid"></div>
+  </section>
+
+  <section class="view" id="view-manav" data-searchable>
+    <p class="intro-block">पुराणों और उपनिषदों में मनुष्य को देवताओं जितनी ही संभावनाओं वाला बताया गया है — तप, ज्ञान और संकल्प से मनुष्य अपनी नियति स्वयं बदल सकता है। ये कथाएं इसी असीम मानवीय शक्ति का प्रमाण हैं।</p>
+    <div class="grid" id="manavGrid"></div>
+  </section>
+
+  <section class="view" id="view-gyan" data-searchable>
+    <p class="intro-block">यह खंड जल्दी पढ़ने के लिए नहीं है। हर टुकड़े को धीरे पढ़ना, रुककर सोचना — यही इसका सही तरीका है। यहाँ तथ्य नहीं, अनुभव की बात है।</p>
+    <div class="grid" id="gyanGrid"></div>
+  </section>
+
+  <section class="view" id="view-gupt" data-searchable>
+    <p class="intro-block">यह सबसे गहरा भाग है — ऐसा ज्ञान जो सामान्यतः केवल गुरु-शिष्य परंपरा में, वर्षों की साधना के बाद ही साझा किया जाता था। धीरे पढ़ना, और हर पंक्ति के बाद रुककर सोचना।</p>
+    <div class="grid" id="guptGrid"></div>
+  </section>
+
+  <section class="view" id="view-jeevan" data-searchable>
+    <p class="intro-block">ज्ञान पढ़ने से नहीं, जीने से फलता है। यहाँ बताया गया है कि ऊपर पढ़ी गई गहरी बातों को रोज़मर्रा की ज़िंदगी में कैसे उतारा जाए — छोटे, व्यावहारिक कदमों में।</p>
+    <div class="grid" id="jeevanGrid"></div>
+  </section>
+
+  <section class="view" id="view-japa">
+    <p class="intro-block">मंत्र जप का डिजिटल माला — हर टैप एक जप है। 108 पूरे होते ही अपने आप एक माला गिन ली जाती है।</p>
+    <div class="japa-box">
+      <div class="japa-count" id="japaCount">0</div>
+      <div class="japa-rounds" id="japaRoundsLabel">0 माला पूरी</div>
+      <button class="japa-tap-btn" id="japaTapBtn">🕉️<div class="japa-tap-label">टैप करो</div></button>
+      <button class="rahasya-btn" id="japaResetBtn">🔄 रीसेट करें</button>
+    </div>
+  </section>
+
+  <section class="view" id="view-gallery" data-searchable>
+    <p class="intro-block">यहाँ हर कोई फोटो-वीडियो देख सकता है, पर जोड़ने के लिए PIN चाहिए — सिर्फ तुम ही नई चीज़ें जोड़ या हटा पाओगे।</p>
+    <div class="gallery-toolbar">
+      <button class="rahasya-btn" id="addPhotoBtn">➕ फोटो जोड़ें</button>
+      <button class="rahasya-btn" id="addGalleryVideoBtn">🎥 वीडियो जोड़ें</button>
+      <input type="file" id="photoFileInput" accept="image/*" multiple style="display:none;">
+      <input type="file" id="galleryVideoInput" accept="video/*" style="display:none;">
+    </div>
+    <div class="grid gallery-grid" id="galleryGrid"></div>
+  </section>
+
+  <section class="view" id="view-personal">
+    <div id="personalLockedBox"></div>
+    <div id="personalUnlockedArea" style="display:none;">
+      <p class="intro-block">ये सिर्फ तुम्हारी अपनी बातें हैं — कोई PIN के बिना इन्हें नहीं देख सकता। यहाँ अपना कोई भी विचार, रहस्य या नोट लिख सकते हो।</p>
+      <div class="personal-form">
+        <input type="text" id="personalTitleInput" class="personal-input" placeholder="शीर्षक (जैसे: मेरा अनुभव)">
+        <textarea id="personalBodyInput" class="personal-textarea" placeholder="यहाँ अपनी बात लिखो..." rows="4"></textarea>
+        <div class="personal-attach-row">
+          <button class="rahasya-btn" id="personalPhotoBtn" type="button">📷 फोटो जोड़ें</button>
+          <button class="rahasya-btn" id="personalVideoBtn" type="button">🎥 वीडियो जोड़ें</button>
+          <input type="file" id="personalPhotoInput" accept="image/*" style="display:none;">
+          <input type="file" id="personalVideoInput" accept="video/*" style="display:none;">
+        </div>
+        <div id="personalAttachPreview" class="personal-attach-preview"></div>
+        <div class="personal-form-actions">
+          <button class="rahasya-btn" id="personalAddBtn">➕ जोड़ें</button>
+          <button class="rahasya-btn" id="personalLockBtn">🔒 लॉक करें</button>
+        </div>
+      </div>
+      <div class="grid" id="personalGrid"></div>
+    </div>
+  </section>
+
+  <section class="view" id="view-fav" data-searchable>
+    <p class="intro-block">तुमने जिन बातों को ⭐ लगाकर बचाया है, वे यहाँ मिलेंगी — अपनी खुद की रहस्य-पुस्तक बनाओ।</p>
+    <div class="grid" id="favGrid"></div>
+  </section>
+
+  <section class="view" id="view-tantra" data-searchable>
+    <p class="intro-block">तंत्र को अक्सर गलत समझा जाता है। यहाँ इसका असली, पारंपरिक अर्थ समझाया गया है — ज्ञान के लिए, किसी खतरनाक प्रयोग के लिए नहीं।</p>
+    <div class="grid" id="tantraGrid"></div>
+  </section>
+
+  <section class="view" id="view-bhaktcharit" data-searchable>
+    <p class="intro-block">भक्ति मार्ग पर चलने वाले महान संतों का जीवन — उनके संघर्ष, उनकी भक्ति, और उनसे मिलने वाली प्रेरणा।</p>
+    <div class="grid" id="bhaktcharitGrid"></div>
+  </section>
+</main>
+
+<footer>सनातन रहस्य — ज्ञान और जिज्ञासा के लिए। यह सामग्री सामान्य जानकारी हेतु है।</footer>
+
+<div id="rahasyaModal">
+  <div class="modal-box">
+    <button class="modal-close" id="modalCloseBtn">✕</button>
+    <div class="modal-scroll-content">
+      <h3 id="modalTitle"></h3>
+      <p id="modalBody"></p>
+      <p id="modalRahasya" class="rahasya-line" style="margin-top:14px;"></p>
+    </div>
+  </div>
+</div>
+
+<div id="galleryPinOverlay" class="pin-gate-overlay">
+  <div class="lock-box" id="galleryPinBox"></div>
+</div>
+
+<script>
+const puranas = [
+  { title:"विष्णु पुराण", meta:"सृष्टि, स्थिति और प्रलय का चक्र", body:"विष्णु पुराण को अठारह महापुराणों में सबसे प्राचीन और सर्वाधिक व्यवस्थित माना जाता है। इसकी रचना पराशर मुनि ने अपने शिष्य मैत्रेय को सुनाई थी। इसमें पांच मुख्य विषय हैं — सर्ग (सृष्टि रचना), प्रतिसर्ग (पुनर्रचना), वंश (देवताओं और ऋषियों की वंशावली), मन्वंतर (चौदह मनुओं का काल), और वंशानुचरित (सूर्यवंश-चंद्रवंश के राजाओं का इतिहास)। इसमें भगवान विष्णु के दस अवतारों — मत्स्य से लेकर कल्कि तक — का वर्णन क्रमबद्ध रूप से मिलता है, साथ ही ध्रुव और प्रह्लाद जैसे महान भक्तों की कथाएं भी विस्तार से कही गई हैं।", rahasya:"इसमें समय को सीधी रेखा नहीं, बल्कि अनंत बार दोहराए जाने वाला चक्र बताया गया है — हर कल्प के अंत में सृष्टि जल में लीन होती है और ब्रह्मा के जागने पर पुनः वही चक्र दोहराया जाता है। यह विचार बताता है कि विनाश वास्तव में विराम मात्र है, अंत नहीं।" },
+  { title:"शिव पुराण", meta:"प्रलय, तप और रुद्र रूप", body:"शिव पुराण में भगवान शिव को सृष्टि के मूल तत्व — सदाशिव — के रूप में स्थापित किया गया है, जो निर्गुण भी हैं और सगुण भी। इसमें बारह ज्योतिर्लिंगों की उत्पत्ति कथाएं, शिव-पार्वती के विवाह की विस्तृत कथा, दक्ष यज्ञ विध्वंस और सती के आत्मदाह की घटना, तथा गणेश और कार्तिकेय के जन्म की कथाएं दी गई हैं। इसमें शिव के अनेक रूपों — अर्धनारीश्वर, नटराज, भैरव — का भी वर्णन है, जो दर्शाते हैं कि शिव तत्व स्त्री-पुरुष, सृजन-संहार जैसे सभी द्वंद्वों से परे हैं।", rahasya:"शिव को सृष्टि और प्रलय दोनों का देवता माना गया है — जो बनाता है वही मिटाता भी है। दक्ष यज्ञ की कथा यह भी सिखाती है कि अहंकार, चाहे कितना भी बड़ा राजा या यज्ञकर्ता क्यों न करे, शिव तत्व के सामने टिक नहीं पाता।" },
+  { title:"भागवत पुराण", meta:"कृष्ण लीला और भक्ति मार्ग", body:"श्रीमद्भागवत पुराण को वेदव्यास की सबसे परिपक्व रचना माना जाता है, जिसे उन्होंने अपने जीवन के अंतिम समय में लिखा। इसके बारह स्कंधों में सृष्टि रचना से लेकर श्रीकृष्ण के बाल्यकाल, वृंदावन की रासलीला, कंस वध, और द्वारिका की स्थापना तक की कथाएं क्रमबद्ध रूप से मिलती हैं। यह ग्रंथ नवधा भक्ति — श्रवण, कीर्तन, स्मरण से लेकर आत्मनिवेदन तक — का विस्तृत वर्णन करता है, और इसे ज्ञान व कर्म से भी श्रेष्ठ मार्ग बताया गया है। गजेंद्र मोक्ष और उद्धव गीता जैसे प्रसंग इसी पुराण की विशेष देन हैं।", rahasya:"माया के पर्दे के पीछे स्वयं परमात्मा खेल रहे हैं — संसार का हर सुख-दुख उसी लीला का एक भाग है। गजेंद्र मोक्ष की कथा बताती है कि जब भक्त अहंकार त्यागकर पूर्ण समर्पण से पुकारता है, तब भगवान बिना विलंब दौड़े चले आते हैं।" },
+  { title:"मार्कण्डेय पुराण", meta:"देवी महात्म्य और दुर्गा सप्तशती", body:"मार्कण्डेय पुराण की विशेषता यह है कि यह ऋषि मार्कण्डेय द्वारा पक्षीराज जैमिनी के प्रश्नों के उत्तर के रूप में कहा गया है। इसमें प्रसिद्ध 'दुर्गा सप्तशती' (चण्डी पाठ) सम्मिलित है, जिसमें देवी के मधुकैटभ वध, महिषासुर वध और शुम्भ-निशुम्भ वध — तीन चरितों का वर्णन है। इसमें हरिश्चंद्र की सत्यनिष्ठा की कथा भी है, जिन्होंने सत्य की रक्षा हेतु अपना राज्य, पत्नी और पुत्र तक त्याग दिया।", rahasya:"जब भी सृष्टि में अन्याय अपनी चरम सीमा पार करता है, तब देवता स्वयं असहाय होकर अपनी शक्ति एक स्थान पर केंद्रित करते हैं, और उसी सम्मिलित तेज से देवी प्रकट होती हैं — यह दर्शाता है कि सामूहिक शक्ति से ही सबसे बड़े संकट का सामना संभव है।" },
+  { title:"गरुड़ पुराण", meta:"मृत्यु के बाद की यात्रा", body:"गरुड़ पुराण भगवान विष्णु द्वारा अपने वाहन गरुड़ को दिए गए उपदेश के रूप में है। इसका पूर्व भाग सामान्य ज्ञान, धर्म और नीति से संबंधित है, जबकि इसका 'प्रेत कल्प' नामक भाग मृत्यु के बाद आत्मा की यात्रा, यमलोक के मार्ग, और पिंडदान-श्राद्ध जैसी विधियों के महत्व को विस्तार से समझाता है। इसमें बताया गया है कि मृत्यु के तेरह दिनों के भीतर की गई विधियां आत्मा की अगली यात्रा को सुगम बनाती हैं।", rahasya:"इसका सबसे गूढ़ रहस्य यह विचार है कि मृत्यु अंत नहीं बल्कि एक द्वार है — शरीर छूटने के बाद भी कर्मों का हिसाब आत्मा के साथ चलता रहता है, इसलिए जीवित रहते हुए किए गए कर्म ही असली पूंजी हैं।" },
+  { title:"स्कन्द पुराण", meta:"सबसे विशाल पुराण, तीर्थ महिमा", body:"स्कन्द पुराण आकार में सबसे बड़ा पुराण है, जिसे भगवान कार्तिकेय (स्कन्द) से जोड़ा गया है। इसे कई खंडों में बांटा गया है, जिनमें केदार खंड, काशी खंड, वैष्णव खंड और रेवा खंड प्रमुख हैं। हर खंड में भारत के अलग-अलग क्षेत्रों — काशी, केदारनाथ, नर्मदा तट — की तीर्थ महिमा, वहां के मंदिरों की उत्पत्ति कथाएं, और वहां स्नान-दर्शन से मिलने वाले पुण्य का वर्णन है।", rahasya:"पृथ्वी पर कुछ स्थान ऐसे हैं जहाँ स्वर्ग और मृत्युलोक की सीमाएं धुंधली पड़ जाती हैं — इन्हें सिद्ध तीर्थ कहा गया है, जहाँ साधारण भक्ति भी असाधारण फल देती है, मानो वह भूमि स्वयं जागृत हो।" },
+  { title:"पद्म पुराण", meta:"सृष्टि की उत्पत्ति का प्रतीक", body:"पद्म पुराण का नाम उस कमल (पद्म) से लिया गया है जिस पर ब्रह्मा जी की उत्पत्ति हुई मानी जाती है, जो स्वयं विष्णु की नाभि से निकला था। इसमें सृष्टि रचना, भूगोल का विस्तृत वर्णन, तथा एकादशी, कार्तिक मास जैसे अनेक व्रत-कथाओं का संग्रह है। इसमें राधा-कृष्ण की भक्ति और तुलसी माहात्म्य का भी विशेष उल्लेख मिलता है।", rahasya:"कमल कीचड़ में उगकर भी निर्मल और सुगंधित रहता है — यही सृष्टि के जन्म का गूढ़ संदेश है कि परम पवित्रता किसी अशुद्ध वातावरण से भी जन्म ले सकती है, बशर्ते जड़ें गहरी और भाव शुद्ध हों।" },
+  { title:"मत्स्य पुराण", meta:"प्रलय और विष्णु का प्रथम अवतार", body:"मत्स्य पुराण में भगवान विष्णु के मत्स्य (मछली) अवतार की विस्तृत कथा है। जब राजा मनु नदी में स्नान कर रहे थे, तब एक छोटी मछली ने उनसे रक्षा मांगी। मनु ने उसे बड़ा करते हुए अंततः समुद्र में छोड़ा, और तब मछली रूपी विष्णु ने बताया कि शीघ्र ही महाप्रलय आने वाली है। इसमें मनु को एक विशाल नाव बनाकर सप्तर्षियों, बीज और प्राणियों को बचाने का निर्देश दिया गया, और मत्स्य अवतार ने स्वयं उस नाव को खींचकर सुरक्षित रखा।", rahasya:"हर महाविनाश से पहले एक रक्षक पहले से भेजा जाता है — प्रलय अंत नहीं, बल्कि एक नई शुरुआत की सावधानीपूर्वक तैयारी है, और यह भी सिखाती है कि छोटी सी दया (मछली की रक्षा) कभी-कभी पूरी सृष्टि को बचाने का माध्यम बन जाती है।" },
+  { title:"वायु पुराण", meta:"वायु तत्व और सृष्टि विज्ञान", body:"वायु पुराण को सबसे प्राचीन पुराणों में गिना जाता है, जिसमें वायु देव द्वारा सृष्टि रचना, कल्प-मन्वंतरों की गणना, भूगोल और खगोल विज्ञान का विस्तृत वर्णन किया गया है। इसमें ऋषि परंपराओं, यज्ञ विधियों, और शिव की महिमा का भी उल्लेख मिलता है। यह पुराण भूगोल संबंधी जानकारी के लिए विशेष रूप से महत्वपूर्ण माना जाता है, जिसमें पर्वतों, नदियों और द्वीपों का वर्गीकरण किया गया है।", rahasya:"वायु को प्राण का देवता कहा गया है — शरीर और ब्रह्मांड दोनों की गति उसी अदृश्य तत्व से चलती है, जो न दिखता है न पकड़ में आता है, फिर भी जीवन का आधार है।" },
+  { title:"ब्रह्म पुराण", meta:"सृष्टिकर्ता ब्रह्मा का ज्ञान", body:"ब्रह्म पुराण में सृष्टि रचना की प्रक्रिया ब्रह्मा जी के मुख से कही गई है। इसमें सूर्यवंश और चंद्रवंश के राजाओं का विस्तृत इतिहास, कृष्ण जन्म और लीलाओं का संक्षिप्त वर्णन, तथा उड़ीसा स्थित कोणार्क और पुरी के जगन्नाथ मंदिर से जुड़ी तीर्थ महिमा का उल्लेख मिलता है।", rahasya:"रचयिता स्वयं मौन है — ब्रह्मा जी की पूजा बहुत कम स्थानों पर होती है, मानो सृजनकर्ता अपनी रचना पूर्ण करने के बाद स्वयं उसमें विलीन हो जाता है और श्रेय की अपेक्षा नहीं रखता।" },
+  { title:"ब्रह्माण्ड पुराण", meta:"अनंत ब्रह्मांडों का रहस्य", body:"इस पुराण में एक नहीं बल्कि अनेक ब्रह्मांडों के अस्तित्व की चर्चा है, जो एक-दूसरे से भिन्न नियमों पर चल सकते हैं। इसमें प्रसिद्ध 'ललिता सहस्रनाम' (देवी के हजार नामों की स्तुति) भी सम्मिलित है, साथ ही भूगोल, खगोल और कल्प विभाजन का विस्तृत विवरण है।", rahasya:"हमारा ब्रह्मांड अकेला नहीं, बल्कि अनंत ब्रह्मांडों में से एक है — यह प्राचीन विचार आधुनिक बहु-ब्रह्मांड (मल्टीवर्स) सिद्धांत से आश्चर्यजनक रूप से मिलता-जुलता है, मानो हजारों वर्ष पहले ही इसकी झलक पा ली गई हो।" },
+  { title:"लिंग पुराण", meta:"शिव के निराकार स्वरूप का रहस्य", body:"लिंग पुराण शिव को निराकार, अनंत ज्योति स्तंभ के रूप में वर्णित करता है, जिसकी न आदि है न अंत। कथा है कि ब्रह्मा और विष्णु के बीच श्रेष्ठता को लेकर विवाद हुआ, तब यह अनंत ज्योति स्तंभ प्रकट हुआ। दोनों ने इसका आदि-अंत खोजने का प्रयास किया, पर असफल रहे — तभी इसमें से स्वयं शिव प्रकट हुए।", rahasya:"निराकार को आकार में बांधने का प्रयास मनुष्य की सीमा है — ज्योति स्तंभ की कथा दिखाती है कि परमसत्य किसी एक रूप, दिशा या माप में बंध नहीं सकता, चाहे खोजने वाला स्वयं सृष्टिकर्ता ही क्यों न हो।" },
+  { title:"भविष्य पुराण", meta:"आने वाले समय की भविष्यवाणियां", body:"भविष्य पुराण में आने वाले युगों, राजवंशों और घटनाओं की भविष्यवाणियां संकलित हैं। इसमें सूर्य उपासना, व्रत-त्योहारों की विधि, तथा सामाजिक आचार-व्यवहार से जुड़े अनेक नियम भी वर्णित हैं। इसका एक भाग भविष्य में होने वाले राजाओं और कालखंडों के विवरण से जुड़ा है।", rahasya:"समय की धारा को पहले से देख पाने की यह कल्पना संकेत देती है कि भूत, वर्तमान और भविष्य वास्तव में किसी गहरे स्तर पर एक साथ ही अस्तित्व में हो सकते हैं, और कुछ चेतनाएं उस धारा के आर-पार देख सकती हैं।" },
+  { title:"अग्नि पुराण", meta:"ज्ञान का विश्वकोश", body:"अग्नि पुराण को ज्ञान का विश्वकोश कहा जाता है, क्योंकि इसमें धर्म-कर्म के साथ-साथ चिकित्सा शास्त्र (आयुर्वेद), ज्योतिष, व्याकरण, छंदशास्त्र, युद्धनीति, राजनीति, और यहां तक कि मूर्ति एवं मंदिर निर्माण की कला तक का वर्णन मिलता है। यह अग्नि देव द्वारा ऋषि वशिष्ठ को दिए गए उपदेश के रूप में वर्णित है।", rahasya:"अग्नि को साक्षी और शोधक दोनों माना गया है — जो जलाकर शुद्ध भी करती है। यही कारण है कि हर संस्कार, विवाह से लेकर अंतिम संस्कार तक, अग्नि की उपस्थिति में ही पूर्ण माना जाता है।" },
+  { title:"नारद पुराण", meta:"भक्ति और ज्ञान का संगम", body:"नारद पुराण में भक्ति मार्ग, व्रत-कथाएं, तीर्थ महिमा और वेदों के सार का विस्तृत संकलन है, जो देवर्षि नारद के माध्यम से प्रवाहित होता है। इसमें संगीत, ज्योतिष और व्याकरण से जुड़े विषयों का भी उल्लेख है, तथा भक्ति को मोक्ष का सरलतम मार्ग बताया गया है।", rahasya:"नारद तीनों लोकों में स्वतंत्र रूप से विचरण करते हैं और कहीं भी बंधे नहीं रहते — यह दर्शाता है कि सच्चा ज्ञान और भक्ति किसी एक स्थान, संप्रदाय या सीमा में कैद नहीं होती, वह सतत गतिशील रहती है।" },
+  { title:"कूर्म पुराण", meta:"विष्णु का कच्छप अवतार", body:"कूर्म पुराण में विष्णु के कच्छप (कछुआ) अवतार की कथा है, जिन्होंने समुद्र मंथन के समय डूबते हुए मंदराचल पर्वत को अपनी पीठ पर धारण किया, जिससे मंथन निर्बाध रूप से चल सका। इसमें शिव महिमा, तीर्थ यात्रा विधि और वर्णाश्रम धर्म का भी वर्णन मिलता है।", rahasya:"स्थिरता ही आधार है — जब तक नींव दृढ़ न हो, कोई भी बड़ा मंथन, निर्माण या परिवर्तन संभव नहीं। कूर्म अवतार यह सिखाता है कि सबसे बड़े कार्यों के पीछे प्रायः एक अदृश्य, धैर्यवान आधार होता है जो कभी श्रेय नहीं मांगता।" }
+];
+
+const granthList = [
+  { title:"ऋग्वेद, यजुर्वेद, सामवेद, अथर्ववेद", meta:"चार वेद — ज्ञान की मूल जड़ें", body:"वेदों को सनातन ज्ञान का सबसे प्राचीन और मूल स्रोत माना जाता है, जिन्हें ऋषियों ने गहन तप और ध्यान की अवस्था में 'सुना' था, इसीलिए इन्हें 'श्रुति' कहा जाता है। ऋग्वेद में देवताओं की स्तुति में रचे गए मंत्र हैं, जो सबसे प्राचीन माने जाते हैं। यजुर्वेद में यज्ञ कर्मकांड की विधियां गद्य रूप में दी गई हैं। सामवेद ऋग्वेद के ही मंत्रों को संगीतमय रूप में प्रस्तुत करता है और भारतीय शास्त्रीय संगीत का मूल स्रोत माना जाता है। अथर्ववेद में दैनिक जीवन, चिकित्सा, रोग-निवारण और सामाजिक व्यवहार से जुड़े मंत्र संकलित हैं।", rahasya:"वेदों को 'अपौरुषेय' कहा गया है — अर्थात किसी मनुष्य द्वारा रचित नहीं, बल्कि ब्रह्मांडीय ध्वनि के रूप में सदा विद्यमान ज्ञान, जिसे ऋषियों ने केवल 'सुनकर' शब्दों में उतारा। यह विचार ध्वनि और स्पंदन (नाद) के गहरे रहस्य की ओर इशारा करता है, जो सृष्टि के मूल में माना जाता है।" },
+  { title:"उपनिषद", meta:"आत्मा और ब्रह्म का दार्शनिक ज्ञान", body:"उपनिषद वेदों का दार्शनिक सार हैं, जिनकी संख्या परंपरागत रूप से 108 मानी जाती है, जिनमें से ईश, केन, कठ, प्रश्न, मुंडक, मांडूक्य, तैत्तिरीय, ऐतरेय, छांदोग्य और बृहदारण्यक — ये दस मुख्य उपनिषद माने जाते हैं। इनमें आत्मा, ब्रह्म, मोक्ष और सृष्टि जैसे गूढ़ विषयों पर गुरु-शिष्य के बीच गहन संवाद के रूप में चर्चा होती है। कठोपनिषद में नचिकेता और यमराज का संवाद, तथा छांदोग्य में श्वेतकेतु और उनके पिता का संवाद विशेष रूप से प्रसिद्ध है।", rahasya:"'तत् त्वम् असि' — तू वही है, यह महावाक्य बताता है कि व्यक्तिगत आत्मा (जीवात्मा) और सम्पूर्ण ब्रह्मांडीय चेतना (परमात्मा) मूल रूप से भिन्न नहीं, बल्कि एक ही हैं — भेद केवल अज्ञान के कारण प्रतीत होता है।" },
+  { title:"रामायण", meta:"मर्यादा पुरुषोत्तम राम की गाथा", body:"महर्षि वाल्मीकि रचित रामायण को आदिकाव्य कहा जाता है और इसे सात कांडों (बालकांड, अयोध्याकांड, अरण्यकांड, किष्किंधाकांड, सुंदरकांड, युद्धकांड, उत्तरकांड) में विभाजित किया गया है। इसमें राम के जन्म, वनवास, सीता हरण, वानरों से मित्रता, लंका पर आक्रमण और रावण वध की कथा विस्तार से वर्णित है। यह ग्रंथ आदर्श पुत्र, आदर्श भाई, आदर्श राजा और आदर्श मित्र होने का व्यावहारिक मार्ग दिखाता है, जिसमें हर पात्र — भरत का त्याग, लक्ष्मण की सेवा, हनुमान की भक्ति — एक अलग आदर्श स्थापित करता है।", rahasya:"राम स्वयं ईश्वर होते हुए भी मानवीय सीमाओं और कष्टों में जीते हैं, बिना अपनी दिव्य शक्ति का उपयोग किए धर्म का पालन करते हैं — यह दिखाता है कि सच्चा धर्म शक्ति से नहीं, संयम और कर्तव्यनिष्ठा से सिद्ध होता है।" },
+  { title:"महाभारत", meta:"धर्म और अधर्म का महासंग्राम", body:"महर्षि वेदव्यास रचित महाभारत विश्व का सबसे विशाल महाकाव्य है, जिसमें एक लाख से अधिक श्लोक हैं। इसमें कौरव-पांडव के बीच राज्य को लेकर हुए संघर्ष, द्रौपदी स्वयंवर, वनवास, अज्ञातवास, और अंततः अठारह दिनों तक चले महायुद्ध का वर्णन है। इसके साथ ही इसमें भीष्म पितामह के उपदेश, विदुर नीति, और अनेक उपाख्यान भी सम्मिलित हैं जो जीवन के हर पहलू — राजनीति, नैतिकता, पारिवारिक कर्तव्य — पर गहन मार्गदर्शन देते हैं।", rahasya:"इसमें कहा गया है कि 'यहाँ जो है वह अन्यत्र भी है, और जो यहाँ नहीं है वह कहीं नहीं है' — अर्थात मानव जीवन की हर संभावित स्थिति, हर नैतिक दुविधा का समाधान इस ग्रंथ में पहले से ही छुपा हुआ है।" },
+  { title:"श्रीमद्भगवद्गीता", meta:"कर्मयोग का शाश्वत उपदेश", body:"महाभारत के भीष्म पर्व में स्थित गीता में, जब अर्जुन युद्धभूमि में अपने ही परिजनों को देखकर मोहग्रस्त हो जाते हैं, तब श्रीकृष्ण उन्हें अठारह अध्यायों में कर्मयोग, ज्ञानयोग और भक्तियोग का उपदेश देते हैं। इसमें आत्मा की अमरता, स्थितप्रज्ञ की स्थिति, तथा निष्काम कर्म के सिद्धांत का विस्तार से वर्णन है।", rahasya:"'कर्म करो, फल की चिंता मत करो' — यह सिद्धांत बताता है कि मानसिक शांति परिणाम पर नहीं, बल्कि कर्तव्य के प्रति ईमानदार समर्पण पर निर्भर करती है, चाहे परिस्थिति कितनी भी कठिन क्यों न हो।" }
+];
+
+const devtaList = [
+  { title:"भगवान विष्णु", meta:"पालनकर्ता — भक्त: प्रह्लाद, ध्रुव, अम्बरीष", body:"विष्णु त्रिदेवों में पालनकर्ता माने जाते हैं, जो धर्म की रक्षा और अधर्म के नाश हेतु समय-समय पर पृथ्वी पर अवतार लेते हैं — इन्हें दशावतार कहा जाता है। वे क्षीरसागर में शेषनाग की शय्या पर विराजमान हैं, और लक्ष्मी जी सदा उनके साथ रहती हैं। भक्त प्रह्लाद ने अपने असुर पिता हिरण्यकश्यप के भीषण अत्याचारों — अग्नि, विष, हाथी के पैरों तले कुचलने तक के प्रयासों — के बावजूद अपनी भक्ति नहीं छोड़ी, और अंततः नरसिंह अवतार में स्वयं भगवान प्रकट होकर उनकी रक्षा की।", bhakt:"मुख्य भक्त: प्रह्लाद (भक्ति की सबसे कठिन परीक्षा), ध्रुव (पांच वर्ष की आयु में तपस्या कर ध्रुव तारा पद प्राप्त किया), अम्बरीष (एकादशी व्रत की अटूट निष्ठा से दुर्वासा ऋषि के क्रोध से भी सुरक्षित रहे)।", rahasya:"भक्त की सच्ची पुकार पर भगवान समय, स्थान और नियमों को भी तोड़ देते हैं — नरसिंह अवतार न दिन में न रात में, न घर में न बाहर, न मनुष्य न पशु रूप में प्रकट हुए, ताकि हिरण्यकश्यप के वरदान की कोई भी शर्त भंग न हो, फिर भी न्याय हो सके।" },
+  { title:"भगवान शिव", meta:"संहारक और तपस्वी — भक्त: मार्कण्डेय, रावण", body:"शिव वैराग्य, तप और संहार के देवता हैं, जो कैलाश पर्वत पर निवास करते हैं और अपने भक्तों पर अत्यंत शीघ्र प्रसन्न होने के कारण 'भोलेनाथ' कहलाते हैं। वे स्वयं महायोगी हैं, जिनके गले में सर्प, जटाओं में गंगा और मस्तक पर चंद्रमा विराजमान है — यह सभी विरोधाभासी प्रतीक उनके भीतर समाहित परम संतुलन को दर्शाते हैं।", bhakt:"मुख्य भक्त: मार्कण्डेय (जिन्होंने बाल्यावस्था में ही शिवलिंग को इतनी दृढ़ता से पकड़ लिया कि यमराज की मृत्यु-पाश भी शिव के प्रकोप से भयभीत होकर वापस लौट गया), रावण (महाज्ञानी और परम शिवभक्त होते हुए भी अहंकार के कारण अंततः पतन को प्राप्त हुआ)।", rahasya:"शिव भक्ति में जाति, कुल या कर्म का कोई बंधन नहीं — मार्कण्डेय की अल्पायु और रावण का असीम ज्ञान, दोनों ही शिव के सामने समान भाव से स्वीकार हुए, पर फल उनके अपने स्वभाव — विनम्रता या अहंकार — के अनुसार ही मिला।" },
+  { title:"भगवान ब्रह्मा", meta:"सृष्टिकर्ता — तपस्वी: विश्वामित्र", body:"ब्रह्मा त्रिदेवों में सृष्टि की रचना करने वाले देवता हैं, जिनके चार मुख चारों वेदों के प्रतीक माने जाते हैं। उनकी पूजा बहुत कम स्थानों पर होती है — राजस्थान के पुष्कर में स्थित मंदिर इसका सबसे प्रसिद्ध उदाहरण है। कथा है कि सरस्वती के शाप के कारण उनकी पूजा सीमित हो गई।", bhakt:"सम्बंधित तपस्वी: विश्वामित्र, जिन्होंने अपनी तपस्या के बल पर एक नई सृष्टि (त्रिशंकु स्वर्ग) रचने का साहसिक प्रयास किया, जिससे स्वयं देवगण भी विचलित हो उठे।", rahasya:"सृष्टिकर्ता स्वयं सबसे कम पूजा जाता है — यह दर्शाता है कि निर्माण की प्रक्रिया प्रायः अदृश्य, श्रेयरहित और अल्प-सम्मानित रहती है, जबकि पालन और संहार करने वाले अधिक स्मरण किए जाते हैं।" },
+  { title:"देवी दुर्गा / आदि शक्ति", meta:"शक्ति स्वरूपा — भक्त: सभी देवता स्वयं", body:"जब असुर महिषासुर के अत्याचार से समस्त देवता भी पराजित हो गए, तब उन्होंने अपनी सम्मिलित शक्ति और तेज को एक स्थान पर केंद्रित किया, और उसी दिव्य तेज से देवी दुर्गा प्रकट हुईं। हर देवता ने उन्हें अपना सबसे शक्तिशाली अस्त्र समर्पित किया — त्रिशूल शिव से, चक्र विष्णु से, वज्र इंद्र से — और इसी सम्मिलित शक्ति से देवी ने नौ दिनों के युद्ध में महिषासुर का वध किया।", bhakt:"भक्त: स्वयं त्रिदेव (ब्रह्मा-विष्णु-महेश) और समस्त देवगण, जिन्होंने अपनी शक्ति देवी को समर्पित की, यह स्वीकार करते हुए कि अकेले वे असुर का सामना नहीं कर सकते।", rahasya:"शक्ति के बिना ज्ञान, सृजन और संहार तीनों अधूरे हैं — यह कथा दिखाती है कि सर्वोच्च शक्ति अंततः स्त्री रूप में ही प्रतिष्ठित है, और पुरुष देवता भी उसके सम्मुख अपनी शक्ति समर्पित करते हैं।" },
+  { title:"देवी लक्ष्मी", meta:"धन-समृद्धि — विष्णु की सहचरी", body:"समुद्र मंथन से चौदह रत्नों में से एक के रूप में प्रकट देवी लक्ष्मी धन, ऐश्वर्य, सौभाग्य और सौंदर्य की देवी हैं, जो सदा भगवान विष्णु के वक्षस्थल पर निवास करती हैं। उन्हें कमल पर विराजमान दिखाया जाता है, जो पवित्रता और सांसारिक मोह से ऊपर उठने का प्रतीक है। दीपावली पर विशेष रूप से उनकी पूजा की जाती है।", bhakt:"जो चंचलता, अहंकार, आलस्य और अधर्म से दूर रहते हैं तथा स्वच्छता एवं परिश्रम को अपनाते हैं, उन्हीं के घर लक्ष्मी स्थायी रूप से वास करती हैं — यह मान्यता प्रचलित है।", rahasya:"लक्ष्मी को चंचला कहा गया है — धन का स्वभाव ही अस्थिर है, वह कभी एक स्थान पर नहीं टिकता। इसे रोकने के लिए धैर्य, धर्म और सतत परिश्रम आवश्यक माने गए हैं, केवल पूजा पर्याप्त नहीं।" },
+  { title:"देवी सरस्वती", meta:"ज्ञान-विद्या — भक्त: सभी विद्यार्थी और ऋषि", body:"श्वेतवस्त्रा देवी सरस्वती विद्या, संगीत, कला और वाणी की अधिष्ठात्री हैं, जिनकी उपासना बिना किसी भेदभाव के हर विद्यार्थी और साधक करता है। उनके एक हाथ में वीणा, दूसरे में पुस्तक और माला होती है, जो कला और ज्ञान दोनों के सामंजस्य को दर्शाता है। बसंत पंचमी के दिन उनकी विशेष पूजा होती है।", bhakt:"वेदव्यास, वाल्मीकि सहित समस्त ऋषि-मुनि और आचार्य सरस्वती कृपा से ही महान ग्रंथों की रचना कर सके, ऐसा माना जाता है — बिना उनकी कृपा के शब्द और विचार व्यवस्थित रूप नहीं ले पाते।", rahasya:"सरस्वती का वाहन हंस है, जो मान्यता अनुसार दूध और पानी को अलग करने की विशेष क्षमता रखता है — यह प्रतीक है कि सच्चा ज्ञान सत्य और असत्य, सार और निस्सार में भेद करना सिखाता है।" },
+  { title:"भगवान गणेश", meta:"विघ्नहर्ता — भक्त: हर शुभ कार्य का आरंभकर्ता", body:"गणेश जी को प्रथम पूज्य देवता माना गया है, जो हर शुभ कार्य के आरंभ में सबसे पहले पूजे जाते हैं ताकि विघ्न दूर हों। उनका गजमुख, बड़ा उदर और चूहे की सवारी — प्रत्येक अंग एक गहरा दार्शनिक अर्थ रखता है: बड़े कान अधिक सुनने का, छोटी आंखें सूक्ष्म दृष्टि का, और बड़ा उदर हर अच्छे-बुरे अनुभव को पचा लेने का प्रतीक है।", bhakt:"हर गृहस्थ और साधक गणेश का भक्त है — वेदव्यास ने महाभारत की रचना के समय भी गणेश जी को ही लेखक बनने का अनुरोध किया था, इस शर्त पर कि वे बिना रुके लिखेंगे।", rahasya:"बुद्धि की परीक्षा में जब कार्तिकेय पूरी पृथ्वी की परिक्रमा करने निकले, तब गणेश ने अपने माता-पिता की परिक्रमा कर यह सिद्ध किया कि माता-पिता ही संपूर्ण सृष्टि हैं — ज्ञान शारीरिक यात्रा से नहीं, गहरी समझ से मिलता है।" },
+  { title:"भगवान राम", meta:"मर्यादा पुरुषोत्तम — भक्त: हनुमान, शबरी", body:"राम विष्णु के सातवें अवतार हैं, जिन्होंने मनुष्य रूप में जन्म लेकर धर्म, मर्यादा और आदर्श जीवन के हर पहलू का उदाहरण प्रस्तुत किया। पिता के वचन की रक्षा हेतु चौदह वर्ष का वनवास स्वीकार करना, भाई भरत का त्याग, और अंततः रावण जैसे महाशक्तिशाली राजा का वध — यह सभी घटनाएं मर्यादा और कर्तव्य के इर्द-गिर्द घूमती हैं।", bhakt:"हनुमान (अटूट सेवा भाव, शक्ति और बुद्धि के प्रतीक, जिन्होंने संजीवनी बूटी हेतु पूरा पर्वत ही उठा लिया), शबरी (वन में रहने वाली भक्त, जिन्होंने प्रेम से जूठे बेर अर्पित किए, जिसे राम ने बिना किसी संकोच के स्वीकार किया)।", rahasya:"राम ने शबरी के जूठे बेर स्वीकार किए जबकि तत्कालीन समाज में यह वर्जित माना जाता था — यह दिखाता है कि सच्ची भक्ति में जाति, सामाजिक स्थिति और परंपरागत बंधन गौण हो जाते हैं, केवल भाव की शुद्धता मायने रखती है।" },
+  { title:"भगवान कृष्ण", meta:"योगेश्वर — भक्त: सुदामा, अर्जुन, मीरा", body:"कृष्ण विष्णु के पूर्ण अवतार माने जाते हैं, जिन्होंने बाल्यकाल की मनमोहक लीलाओं, माखनचोरी, कालिया मर्दन, गोवर्धन पर्वत उठाने से लेकर महाभारत में अर्जुन के सारथी बनने और गीता के उपदेश तक — जीवन के हर रूप और हर भूमिका को पूर्णता से जिया। वे राजनीति में कुशल, युद्धनीति में निपुण और साथ ही परम प्रेमी भी माने जाते हैं।", bhakt:"सुदामा (निर्धन बाल सखा, जो मुट्ठीभर चावल लेकर मिलने गए), अर्जुन (शिष्य एवं सखा, जिन्हें युद्धभूमि में गीता का उपदेश मिला), मीरा बाई (जिन्होंने राजसी जीवन त्यागकर कृष्ण को अपना पति माना और निर्गुण-सगुण भक्ति की सर्वोच्च मिसाल कायम की)।", rahasya:"सुदामा जब द्वारिका पहुंचे, तो कृष्ण ने राजसी वैभव और सिंहासन त्यागकर स्वयं नंगे पैर दौड़कर उनका स्वागत किया और उनके पैर धोए — सच्ची मित्रता धन, पद या उपहार नहीं देखती, केवल हृदय का भाव देखती है।" },
+  { title:"हनुमान जी", meta:"संकटमोचक — स्वयं राम के परम भक्त", body:"हनुमान अष्ट चिरंजीवियों में से एक हैं, जो अपार बल, बुद्धि, वाक्पटुता और निःस्वार्थ सेवा भाव के प्रतीक हैं। लंका दहन, संजीवनी बूटी लाना, और समुद्र लांघना — उनकी अद्भुत क्षमताओं के प्रमाण हैं। वे पवनपुत्र कहलाते हैं और शिव के ग्यारहवें रुद्र अवतार भी माने जाते हैं।", bhakt:"हनुमान स्वयं राम के सबसे बड़े भक्त हैं, और आज भी करोड़ों भक्त संकट के समय हनुमान चालीसा का पाठ करते हैं, यह विश्वास करते हुए कि हनुमान तुरंत सहायता के लिए दौड़े चले आते हैं।", rahasya:"हनुमान को स्वयं अपनी शक्ति का पूर्ण भान नहीं रहता जब तक कोई (जैसे जामवंत) उन्हें उनकी शक्तियों का स्मरण नहीं कराता — यह गहरा संदेश देता है कि हमारी सबसे बड़ी क्षमताएं भी अक्सर विस्मृति या आत्म-संदेह में दबी रह जाती हैं।" },
+  { title:"सूर्य देव", meta:"प्रत्यक्ष देवता — भक्त: कर्ण, संध्या उपासक", body:"सूर्य एकमात्र ऐसे देवता हैं जिन्हें प्रत्यक्ष आँखों से प्रतिदिन देखा जा सकता है, इसलिए इन्हें 'प्रत्यक्ष देवता' कहा जाता है। वे ऊर्जा, स्वास्थ्य, अनुशासन और समय के प्रतीक हैं, और सात घोड़ों के रथ पर सवार दिखाए जाते हैं, जो सप्ताह के सात दिनों के प्रतीक माने जाते हैं।", bhakt:"कर्ण (कुंती पुत्र, जिन्हें जन्म से ही सूर्य कवच-कुंडल का वरदान प्राप्त था, जिसके कारण वे अजेय थे), तथा नित्य सूर्य को अर्घ्य देने वाले असंख्य साधक।", rahasya:"सूर्य को साक्षी देव कहा गया है — हर शुभ-अशुभ कर्म का मूक साक्षी सूर्य ही होता है, इसीलिए प्राचीन काल से संध्या वंदन (सूर्य को जल अर्पण) की परंपरा चली आ रही है, जो अनुशासन और आत्म-चिंतन का प्रतीक है।" },
+  { title:"शनि देव", meta:"न्यायाधीश — भक्त: राजा विक्रमादित्य, हनुमान", body:"शनि देव को सूर्यपुत्र और कर्मों के अनुसार निष्पक्ष न्याय देने वाला देवता माना जाता है — न पक्षपात, न भेदभाव, चाहे व्यक्ति देवता हो या असुर। वे धीमी गति से चलने वाले ग्रह हैं, इसलिए इनकी साढ़ेसाती और ढैय्या का प्रभाव लंबे समय तक माना जाता है।", bhakt:"राजा विक्रमादित्य की कथा प्रसिद्ध है, जिन्होंने शनि की साढ़ेसाती के दौरान अपार कष्ट सहे, फिर भी धैर्य और धर्म का मार्ग नहीं छोड़ा, और अंततः शनि स्वयं प्रसन्न होकर उन्हें वरदान दिया।", rahasya:"शनि को भय का नहीं, न्याय का देवता समझना चाहिए — जो व्यक्ति ईमानदार और शुभ कर्म करता है, उसे शनि सबसे तेज़ और स्थायी फल देते हैं, जबकि अन्यायी को कठोरतम दंड मिलता है, चाहे वह कितना भी शक्तिशाली क्यों न हो।" }
+];
+
+const rahasyaTopics = [
+  { title:"सृष्टि की उत्पत्ति का रहस्य", meta:"शून्य से संसार तक", body:"पुराणों के अनुसार सृष्टि से पहले केवल अनंत अंधकार, मौन और जल था — न दिन था, न रात, न समय की कोई गणना, इसे 'प्रलय काल' कहा गया। उसी अनादि शून्य में एक सूक्ष्म स्पंदन (नाद) हुआ, जिससे स्वर्णिम अंडे (हिरण्यगर्भ) की उत्पत्ति हुई, और उसी से ब्रह्मा जी प्रकट होकर सृष्टि रचना का महान कार्य आरम्भ किया। यह प्रक्रिया एक कल्प (लगभग 4.32 अरब वर्ष) तक चलती है, जिसके बाद पुनः प्रलय होती है।", rahasya:"सबसे गहरा प्रश्न यही है — उस अंतिम शून्य से भी पहले क्या था? पुराण इसका सीधा उत्तर नहीं देते, बल्कि इसे 'अव्यक्त' या 'सत्-चित्-आनंद' कहकर मनुष्य की तार्किक समझ की सीमा को विनम्रता से स्वीकार करते हैं — कुछ रहस्य केवल अनुभव किए जा सकते हैं, समझाए नहीं जा सकते।" },
+  { title:"अमृत मंथन का रहस्य", meta:"देव-असुर संघर्ष और चौदह रत्न", body:"जब ऋषि दुर्वासा के शाप से देवता निर्बल हो गए, तब विष्णु की सलाह पर देवताओं और असुरों ने मिलकर मंदराचल पर्वत को मथनी और वासुकि नाग को रस्सी बनाकर क्षीरसागर का मंथन किया। इस मंथन से क्रमशः हलाहल विष, कामधेनु गाय, ऐरावत हाथी, उच्चैःश्रवा घोड़ा, कल्पवृक्ष, देवी लक्ष्मी, वारुणी, अप्सराएं, चंद्रमा, कौस्तुभ मणि, धन्वंतरि (अमृत कलश सहित), और अंततः विष तथा अमृत — कुल चौदह रत्न निकले।", rahasya:"अमृत पाने से पहले सबसे भयंकर हलाहल विष निकला, जिसे शिव ने कंठ में धारण किया — इसीलिए वे नीलकंठ कहलाए। यह कथा सिखाती है कि कोई भी बड़ी उपलब्धि पाने से पहले सबसे कठिन और विषैली चुनौती का सामना अवश्य करना पड़ता है, और कभी-कभी वह चुनौती किसी और को अपने ऊपर लेनी पड़ती है।" },
+  { title:"त्रिलोक का रहस्य", meta:"स्वर्ग, पृथ्वी और पाताल", body:"पुराणों में सम्पूर्ण ब्रह्मांड को तीन प्रमुख लोकों में विभाजित किया गया है — स्वर्ग लोक (देवताओं का निवास, जहां पुण्यात्माएं अस्थायी रूप से जाती हैं), मृत्युलोक (पृथ्वी, जहां कर्म किए जाते हैं), और पाताल लोक (नागों और असुरों का निवास, जो पृथ्वी के नीचे स्थित माना जाता है)। इसके अतिरिक्त कुछ ग्रंथों में चौदह लोकों का भी वर्णन मिलता है — सात ऊपर (भूः से सत्यलोक तक) और सात नीचे।", rahasya:"एक गहरी मान्यता है कि ये तीनों लोक भौगोलिक रूप से अलग स्थान नहीं, बल्कि चेतना की अलग-अलग अवस्थाएं भी हो सकते हैं — मनुष्य अपने विचारों, कर्मों और वासनाओं के अनुसार जीवित रहते हुए भी इन्हीं लोकों के बीच सूक्ष्म रूप से यात्रा करता रहता है।" },
+  { title:"शेषनाग और पृथ्वी धारण", meta:"धरती किस पर टिकी है", body:"पौराणिक मान्यता है कि हजार फनों वाले शेषनाग अपने एक फन पर सम्पूर्ण पृथ्वी को धारण किए हुए हैं, और वे स्वयं भगवान विष्णु की शय्या भी हैं, जिस पर विष्णु क्षीरसागर में शयन करते हैं। शेषनाग को लक्ष्मण और बलराम का अवतार भी माना जाता है, जो सदा विष्णु के अवतारों के साथ रहते हैं।", rahasya:"अनंत नाग (शेष का अर्थ ही 'जो शेष रहे') समय और अनंतता का प्रतीक है — जिस प्रकार शेषनाग का कभी अंत नहीं, उसी प्रकार समय भी अनंत है, और उसी अनंत काल के आधार पर सम्पूर्ण सृष्टि टिकी हुई है, न कि किसी भौतिक आधार पर।" },
+  { title:"मेरु पर्वत का रहस्य", meta:"ब्रह्मांड का केंद्र बिंदु", body:"पुराणों में मेरु पर्वत को समस्त ब्रह्मांड का केंद्र बिंदु और देवताओं का निवास स्थान बताया गया है, जिसके चारों ओर सूर्य, चंद्र और समस्त ग्रह-नक्षत्र परिक्रमा करते हैं। इसे स्वर्ण पर्वत भी कहा जाता है, और इसकी ऊंचाई इतनी अधिक बताई गई है कि यह स्वर्ग तक पहुंचता है।", rahasya:"आधुनिक खगोलशास्त्र में भी हर आकाशगंगा और सौरमंडल का एक केंद्र बिंदु होता है, जिसके चारों ओर पिंड परिक्रमा करते हैं — मेरु पर्वत की प्राचीन कल्पना इसी ब्रह्मांडीय संरचना और गुरुत्वाकर्षण केंद्र का सांकेतिक रूप हो सकती है।" },
+  { title:"गंगा अवतरण का रहस्य", meta:"स्वर्ग से धरती की यात्रा", body:"राजा भगीरथ ने अपने पूर्वजों — सगर के साठ हजार पुत्रों — के उद्धार हेतु वर्षों कठोर तपस्या की, जिससे प्रसन्न होकर गंगा स्वर्ग से पृथ्वी पर अवतरित होने को तैयार हुईं। परंतु गंगा का वेग इतना प्रचंड था कि वह सीधे गिरने पर पृथ्वी को विदीर्ण कर देतीं, इसलिए शिव ने अपनी जटाओं में उनके वेग को धारण किया और फिर धीरे-धीरे पृथ्वी पर प्रवाहित किया।", rahasya:"बिना शिव की जटाओं (संयम) के गंगा (शक्ति) का वेग पृथ्वी को विनष्ट कर देता — यह गहरा संदेश देता है कि कोई भी विशाल शक्ति, चाहे वह कितनी भी पवित्र और कल्याणकारी क्यों न हो, बिना उचित संयम और माध्यम के विनाशकारी बन जाती है।" },
+  { title:"नवग्रह और खगोल रहस्य", meta:"नौ ग्रहों का मानव जीवन पर प्रभाव", body:"सूर्य, चंद्र, मंगल, बुध, बृहस्पति, शुक्र, शनि, राहु और केतु — इन नौ ग्रहों को ज्योतिष शास्त्र में मनुष्य के जीवन, स्वभाव, स्वास्थ्य और भाग्य से गहराई से जोड़कर देखा गया है। हर ग्रह की अपनी दिशा, रंग, रत्न और देवता निर्धारित हैं, और जन्म कुंडली में इनकी स्थिति के अनुसार जीवन की घटनाओं का आकलन किया जाता है।", rahasya:"राहु-केतु के पास कोई भौतिक शरीर नहीं है (ये छाया ग्रह हैं), फिर भी इन्हें सूर्य-चंद्र ग्रहण जैसी बड़ी खगोलीय घटनाओं का कारण माना गया है — यह दर्शाता है कि प्राचीन दृष्टा जानते थे कि अदृश्य शक्तियां भी दृश्य जगत की सबसे बड़ी घटनाओं को प्रभावित कर सकती हैं।" },
+  { title:"कालचक्र और प्रलय का रहस्य", meta:"हर सृष्टि का अंत क्यों निश्चित है", body:"पुराणों के अनुसार हर कल्प (ब्रह्मा के एक दिन, लगभग 4.32 अरब वर्ष) के अंत में प्रलय होती है, जब सम्पूर्ण सृष्टि जल, अग्नि और वायु में विलीन होकर अपने मूल पंचतत्वों में समा जाती है। यह विनाश तीन प्रकार का बताया गया है — नित्य प्रलय (प्रतिदिन का सोना), नैमित्तिक प्रलय (ब्रह्मा के दिन का अंत), और महाप्रलय (सम्पूर्ण सृष्टि का अंत)।", rahasya:"विनाश और सृजन वास्तव में एक ही शक्ति के दो रूप हैं — जो मिटता है वही अगले चक्र में नए रूप में लौटता है। यह चक्र कभी टूटता नहीं, जिससे यह संकेत मिलता है कि अंत केवल एक नए आरंभ का दूसरा नाम है।" },
+  { title:"कर्म और पुनर्जन्म का रहस्य", meta:"आत्मा की अनंत यात्रा", body:"सनातन विचारधारा में आत्मा को अजर-अमर माना गया है, जो शरीर रूपी वस्त्र को बार-बार बदलती रहती है, जैसे मनुष्य पुराने वस्त्र त्यागकर नए धारण करता है (गीता में यही उपमा दी गई है)। हर जन्म में किए गए कर्मों का संचित फल (संचित कर्म, प्रारब्ध कर्म, क्रियमाण कर्म) अगले जन्म की परिस्थितियों को निर्धारित करता है।", rahasya:"सबसे गहरा रहस्य यह है कि आत्मा को अपने पिछले जन्मों की स्मृति क्यों नहीं रहती — शायद यह विस्मृति ही एक करुणामय व्यवस्था है, जो हर नए जीवन को पिछले बोझ से मुक्त एक ताज़ा अवसर बनाती है।" },
+  { title:"कर्म कैसे पीछा करता है — और पुण्य कैसे साथ देता है", meta:"कर्म का पूरा गणित — क्यों कोई भी कार्य बिना फल के नहीं जाता", body:"कर्म तीन रूपों में काम करता है। पहला — 'संचित कर्म', यानी अनगिनत पिछले जन्मों का जमा हुआ कुल हिसाब, जैसे बैंक में जमा पूरी पूंजी। दूसरा — 'प्रारब्ध कर्म', यानी उस जमा पूंजी में से इस जन्म के लिए 'निकाला' गया हिस्सा, जो अभी भोगना तय है — जैसे तीर एक बार धनुष से छूट जाए तो उसे वापस नहीं बुलाया जा सकता। तीसरा — 'क्रियमाण कर्म' (या आगामी कर्म), यानी अभी, इसी क्षण किए जा रहे कर्म, जो भविष्य के जमा खाते में जुड़ते जाते हैं। कर्म 'पीछा' इसलिए करता है क्योंकि यह किसी बाहरी न्यायाधीश की सज़ा नहीं, बल्कि प्रकृति का एक निष्पक्ष, स्वचालित नियम है — जैसे बीज बोने के बाद फसल आना तय है, चाहे किसान भूल भी जाए कि उसने कब बीज बोया था।", rahasya:"पुण्य (अच्छे कर्मों का संचय) ठीक उसी बैंक बैलेंस की तरह काम करता है — यह कठिन समय में एक अदृश्य सहारे की तरह साथ देता है, संकट को पूरी तरह मिटाता नहीं पर उसकी तीव्रता को कम कर देता है, ठीक वैसे ही जैसे बचत जमा पूंजी अचानक आई मुसीबत में सम्बल देती है। यह इसलिए होता है क्योंकि सृष्टि में कोई भी ऊर्जा — अच्छी या बुरी — कभी नष्ट नहीं होती, वह केवल रूप बदलकर वापस लौटती है, ठीक न्यूटन के नियम की तरह कि हर क्रिया की प्रतिक्रिया अवश्य होती है। असली स्वतंत्रता प्रारब्ध (जो बदला नहीं जा सकता) को शांत भाव से स्वीकार करने में है, जबकि क्रियमाण कर्म (जो अभी हो रहा है) को सजगता से निष्काम भाव में करने से ही यह चक्र धीरे-धीरे शिथिल पड़ता है और अंततः ज्ञान व भक्ति से इसका बंधन टूटता है।" },
+  { title:"शिव तांडव का रहस्य", meta:"विनाश में छुपा सृजन", body:"शिव का तांडव नृत्य केवल क्रोध या विनाश का प्रतीक नहीं, बल्कि सृष्टि के संतुलन को बनाए रखने वाला एक लयबद्ध, ब्रह्मांडीय नृत्य माना जाता है। नटराज स्वरूप में शिव के चार हाथों में डमरू (सृजन की ध्वनि), अग्नि (संहार), अभय मुद्रा (रक्षा) और एक हाथ पृथ्वी की ओर संकेत करता है, तथा वे अपस्मार (अज्ञान) नामक असुर को अपने पैरों तले कुचले हुए नृत्य करते हैं।", rahasya:"जिस नृत्य को विनाश कहा जाता है, वही अगली सृष्टि की पहली धड़कन भी होता है — अंत और आरंभ के बीच वास्तव में कोई ठोस सीमा रेखा नहीं होती, यह एक सतत प्रवाहमान लय है।" },
+  { title:"सप्तर्षि मंडल का रहस्य", meta:"आकाश में सात ऋषियों की स्थायी उपस्थिति", body:"रात के आकाश में दिखने वाला सप्तर्षि तारामंडल (जिसे पश्चिम में 'ग्रेट बीयर' कहा जाता है) सात महान ऋषियों — मरीचि, अत्रि, अंगिरा, पुलस्त्य, पुलह, क्रतु और वशिष्ठ — का प्रतीक माना जाता है। पुराणों में इन्हें ब्रह्मा का मानस पुत्र कहा गया है, जो सृष्टि रचना में सहयोगी रहे और आज भी आकाश में स्थायी रूप से दिखाई देते हैं।", rahasya:"यह मान्यता है कि जब-जब पृथ्वी पर धर्म संकट में पड़ता है, ये सप्तर्षि किसी न किसी रूप में मार्गदर्शन हेतु प्रकट होते हैं — तारों में स्थायी ज्ञान की उपस्थिति का यह प्रतीक सिखाता है कि सच्चा ज्ञान कभी मिटता नहीं, केवल छुपा रहता है।" },
+  { title:"लोकों के बीच की दूरी का रहस्य", meta:"वैकुंठ, कैलाश और स्वर्ग कहां हैं?", body:"शास्त्रों में विष्णु के निवास 'वैकुंठ', शिव के निवास 'कैलाश' और इंद्र के 'स्वर्ग' का वर्णन मिलता है, परंतु इन्हें भौगोलिक दूरी में मापने का कोई ठोस प्रयास नहीं मिलता। कुछ ग्रंथों में इन्हें भौतिक स्थान से परे, चेतना के एक अलग स्तर पर स्थित बताया गया है, जहां भौतिक नियम (दूरी, समय) उस रूप में लागू नहीं होते जिस रूप में पृथ्वी पर होते हैं।", rahasya:"यह विचार बहुत साहसिक है — शायद देवलोक कोई दूर का स्थान नहीं, बल्कि चेतना की एक भिन्न आवृत्ति (frequency) है, जिस तक पहुंचने के लिए यात्रा नहीं, बल्कि भीतर के रूपांतरण की आवश्यकता होती है।" },
+  { title:"पितृ लोक और श्राद्ध का रहस्य", meta:"पूर्वजों से जुड़ाव का अदृश्य सूत्र", body:"सनातन परंपरा में पितरों (दिवंगत पूर्वजों) के लिए श्राद्ध कर्म करने की विधि है, जिसमें विशेष रूप से पितृ पक्ष के दिनों में जल-तर्पण और अन्न-दान किया जाता है। मान्यता है कि इससे पूर्वजों की आत्मा को शांति और अगली यात्रा में सहायता मिलती है, और साथ ही वंशजों को भी उनका आशीर्वाद प्राप्त होता है।", rahasya:"इसका गहरा मनोवैज्ञानिक रहस्य यह भी है कि यह परंपरा जीवित लोगों को अपनी जड़ों से, अपने वंश की निरंतरता से जोड़े रखती है — मृत्यु के बाद भी संबंध पूर्णतः नहीं टूटता, यह विश्वास शोक को सहनीय बनाने का एक प्राचीन मार्ग रहा है।" }
+];
+
+const yugTopics = [
+  { title:"सतयुग", meta:"सत्य और धर्म का स्वर्णिम काल", body:"सतयुग (कृतयुग) को सबसे शुद्ध और श्रेष्ठ युग माना गया है, जिसकी अवधि लगभग 17,28,000 वर्ष बताई जाती है। इस युग में धर्म अपने चारों चरणों — सत्य, दया, तप और दान — पर पूर्ण रूप से स्थित था। मनुष्यों की आयु हजारों वर्षों की होती थी, कोई रोग, पाप, छल-कपट या जाति-भेद नहीं था, और सभी लोग स्वाभाविक रूप से धर्मपरायण थे।", rahasya:"समय के साथ धर्म एक-एक चरण खोता जाता है — यह ह्रास किसी दंड के रूप में नहीं, बल्कि समय के स्वाभाविक और अपरिहार्य नियम के रूप में वर्णित है, जैसे कोई वस्तु धीरे-धीरे अपनी मूल चमक खोती जाती है।" },
+  { title:"त्रेतायुग", meta:"धर्म का तीन चरणों पर टिकना", body:"त्रेतायुग की अवधि लगभग 12,96,000 वर्ष मानी जाती है, जिसमें धर्म का एक चरण (चतुर्थांश) खो चुका था। यही वह युग है जिसमें भगवान राम का अवतार हुआ और रामायण की संपूर्ण कथा घटित हुई। इस युग में यज्ञ और तप का महत्व विशेष रूप से बढ़ गया, और वेदों का अध्ययन-अध्यापन व्यवस्थित रूप लेने लगा।", rahasya:"हर युग में जब अधर्म एक सीमा से अधिक बढ़ता है, संतुलन बहाल करने के लिए एक अवतार अवश्य प्रकट होता है — यह पैटर्न हर युग में बार-बार दोहराया गया है, मानो सृष्टि के भीतर ही एक स्व-सुधार व्यवस्था अंतर्निहित हो।" },
+  { title:"द्वापरयुग", meta:"कृष्ण अवतार और महाभारत का काल", body:"द्वापरयुग की अवधि लगभग 8,64,000 वर्ष मानी जाती है, जिसमें धर्म आधा शेष रह गया था। इसी युग में भगवान श्रीकृष्ण का अवतार हुआ, महाभारत का महायुद्ध लड़ा गया, और इसी युद्धभूमि में गीता का अमर उपदेश दिया गया। इस युग में मनुष्यों की आयु और शक्ति सतयुग-त्रेता की तुलना में काफी कम हो गई थी।", rahasya:"इसी युग के अंत से कलियुग का प्रारम्भ माना जाता है — पुराणों में कहा गया है कि जिस दिन कृष्ण ने पृथ्वी छोड़ी, उसी दिन से कलियुग आरंभ हुआ, अर्थात एक युग का अंत हमेशा अगले युग के बीज के साथ ही आता है।" },
+  { title:"कलियुग", meta:"वर्तमान युग — धर्म का अंतिम चरण", body:"कलियुग की अवधि 4,32,000 वर्ष मानी जाती है, जिसमें वर्तमान समय स्थित है। इसमें धर्म का केवल एक चरण (चौथाई) शेष बचा है। पुराणों में इसे छल-कपट, अशांति, भौतिकता और अल्पायु की प्रधानता वाला युग बताया गया है, परन्तु साथ ही यह भी कहा गया है कि इसी युग में केवल नाम-स्मरण और भक्ति से ही मोक्ष का सबसे सरल मार्ग खुला है, जबकि पिछले युगों में कठोर तप और यज्ञ आवश्यक थे।", rahasya:"सबसे रहस्यमयी भविष्यवाणी यह है कि कलियुग के अंत में भगवान विष्णु 'कल्कि' अवतार के रूप में श्वेत अश्व पर सवार होकर प्रकट होंगे, अधर्म का पूर्ण नाश करेंगे, और पुनः सतयुग की स्वर्णिम स्थापना करेंगे — अर्थात सबसे बड़े अंधकार के बाद ही सबसे बड़ा प्रकाश आता है।" }
+];
+
+const manavTopics = [
+  { title:"ध्रुव की कथा — बाल तप की शक्ति", meta:"एक बालक का अटल संकल्प", body:"मात्र पांच वर्ष के बालक ध्रुव को जब उनकी सौतेली माँ ने राजा के आसन पर बैठने से रोका और कठोर शब्द कहे, तो वे आहत होकर वन में चले गए और नारद मुनि के मार्गदर्शन में भगवान विष्णु की कठोर तपस्या करने लगे। कई महीनों तक बिना अन्न-जल के तप करने के बाद विष्णु प्रसन्न होकर प्रकट हुए और उन्हें आकाश में अटल, अविनाशी स्थान — ध्रुव तारा — प्रदान किया, जो आज भी उत्तर दिशा में सदा स्थिर दिखाई देता है।", rahasya:"मनुष्य क्या कर सकता है: आयु, अनुभव या शारीरिक शक्ति नहीं, केवल दृढ़ संकल्प और अटूट श्रद्धा ही किसी को असाधारण बना सकती है — एक पांच वर्ष का बालक भी आकाश में अमर, अटल स्थान पा सकता है यदि उसका मन डिगे नहीं।" },
+  { title:"सावित्री-सत्यवान — मृत्यु को चुनौती", meta:"बुद्धि और प्रेम से यमराज को परास्त करना", body:"सावित्री ने विवाह से पहले ही जान लिया था कि उनके पति सत्यवान की आयु केवल एक वर्ष शेष है, फिर भी उन्होंने उनसे विवाह किया। जब यमराज स्वयं सत्यवान के प्राण हरने आए, तो सावित्री ने अपने पति के शव के पास न रुककर यमराज का पीछा करना आरंभ किया। अपनी तीव्र बुद्धि, धर्मपूर्ण वार्तालाप और पातिव्रत्य धर्म की बातों से उन्होंने यमराज को इतना प्रभावित किया कि यमराज ने प्रसन्न होकर कई वरदान दिए, और अंततः चतुराई से पुत्रवती होने का वरदान मांगकर परोक्ष रूप से अपने पति के प्राण वापस पा लिए।", rahasya:"मनुष्य क्या कर सकता है: नियति भी पूर्णतः अटल नहीं है — तीव्र बुद्धि, अद्वितीय साहस और सच्चे प्रेम से मनुष्य असंभव प्रतीत होने वाली परिस्थिति को भी अपने पक्ष में मोड़ सकता है, चाहे सामने स्वयं मृत्यु का देवता ही क्यों न हो।" },
+  { title:"नचिकेता और यमराज का संवाद", meta:"मृत्यु के रहस्य को जानने की जिज्ञासा", body:"कठोपनिषद की कथा के अनुसार, बालक नचिकेता के पिता ने क्रोधवश उन्हें यमराज को दान कर दिया। यमलोक पहुंचकर नचिकेता को तीन दिन प्रतीक्षा करनी पड़ी, जिसके बदले यमराज ने प्रायश्चित स्वरूप उन्हें तीन वरदान मांगने को कहा। पहले दो वरदान सांसारिक सुख और अग्नि विद्या से जुड़े थे, परंतु तीसरे वरदान में नचिकेता ने मृत्यु के बाद आत्मा के अस्तित्व का रहस्य पूछा — और अनेक प्रलोभनों (धन, राज्य, दीर्घायु) के बावजूद अपनी मांग नहीं बदली, जिससे प्रसन्न होकर यमराज ने उन्हें आत्मज्ञान प्रदान किया।", rahasya:"मनुष्य क्या कर सकता है: सच्ची जिज्ञासा किसी भी प्रलोभन या भय से बड़ी होती है — जो निर्भय होकर सत्य की खोज में डटा रहता है, स्वयं मृत्यु का देवता भी उसे गहनतम ज्ञान प्रदान करता है।" },
+  { title:"विश्वामित्र की तपस्या — नई सृष्टि रचना", meta:"तप से सृष्टिकर्ता को चुनौती", body:"एक क्षत्रिय राजा से ब्रह्मर्षि बनने तक का सफर तय करने वाले विश्वामित्र ने इतनी कठोर और दीर्घकालीन तपस्या की कि उनकी शक्ति देवताओं तक को विचलित करने लगी। जब राजा त्रिशंकु को स्वर्ग जाने से देवताओं ने रोका और नीचे गिरा दिया, तो विश्वामित्र ने अपने तपोबल से त्रिशंकु के लिए आकाश में ही एक नई, समानांतर सृष्टि रचनी आरंभ कर दी, जिसे देखकर देवताओं को भी संधि करनी पड़ी।", rahasya:"मनुष्य क्या कर सकता है: तप की चरम अवस्था में मनुष्य सृजन जैसी दैवीय शक्ति तक अर्जित कर सकता है — मनुष्य और देवता के बीच अंतर जन्म का नहीं, बल्कि साधना और संकल्प की तीव्रता का है।" },
+  { title:"अर्जुन की एकाग्रता — लक्ष्य भेदन", meta:"चिड़िया की आँख का प्रसिद्ध प्रसंग", body:"गुरुकुल में जब गुरु द्रोणाचार्य ने एक कृत्रिम चिड़िया को वृक्ष पर रखकर सभी शिष्यों से उसकी आँख का निशाना साधने को कहा, तो पहले उन्होंने हर शिष्य से पूछा कि उन्हें क्या दिखाई दे रहा है। किसी ने वृक्ष, किसी ने पूरी चिड़िया देखी। परन्तु जब अर्जुन की बारी आई, तो उन्होंने उत्तर दिया कि उन्हें केवल चिड़िया की आँख दिखाई दे रही है, न वृक्ष, न शाखा, न पक्षी का शरीर — और उसी क्षण द्रोणाचार्य ने उन्हें बाण चलाने की आज्ञा दी।", rahasya:"मनुष्य क्या कर सकता है: पूर्ण, अविभाजित एकाग्रता से मनुष्य की सामान्य इंद्रियां भी असाधारण सटीकता और क्षमता प्राप्त कर सकती हैं — मन जिस एक बिंदु पर पूर्णतः केंद्रित होता है, सफलता वहीं निश्चित हो जाती है।" },
+  { title:"योग और ध्यान की शक्ति", meta:"शरीर और मन पर नियंत्रण", body:"पुराणों, उपनिषदों और योगशास्त्र में बार-बार वर्णन मिलता है कि गहन ध्यान, प्राणायाम और योग साधना से मनुष्य अपनी श्वास, मन और शरीर की सामान्य सीमाओं से परे जा सकता है। ऋषि-मुनि वर्षों तक समाधि अवस्था में रहते थे, जिसमें शरीर की सामान्य आवश्यकताएं (भोजन, नींद) भी सीमित हो जाती थीं — इसी साधना को सिद्धियों का आधार माना गया।", rahasya:"मनुष्य क्या कर सकता है: शरीर केवल हड्डी-मांस का ढांचा नहीं, बल्कि प्राण और ऊर्जा का पुंज है — अनुशासित, नियमित अभ्यास से इसकी शारीरिक और मानसिक क्षमता कई गुना बढ़ाई जा सकती है, यही प्राचीन ऋषियों का मूल संदेश है।" },
+  { title:"एकलव्य की गुरु भक्ति", meta:"बिना गुरु के भी उत्कृष्टता", body:"निषादराज पुत्र एकलव्य ने जब गुरु द्रोणाचार्य से धनुर्विद्या सीखने की इच्छा प्रकट की, तो उन्हें जाति के आधार पर अस्वीकार कर दिया गया। निराश हुए बिना एकलव्य ने वन में द्रोणाचार्य की मिट्टी की मूर्ति बनाई, और उसी को गुरु मानकर वर्षों तक स्वयं अभ्यास किया। परिणामस्वरूप वे धनुर्विद्या में अर्जुन से भी श्रेष्ठ हो गए, केवल ध्वनि सुनकर ही लक्ष्य भेदने में सक्षम हो गए।", rahasya:"मनुष्य क्या कर सकता है: सच्चा समर्पण, अनुशासन और स्वाध्याय किसी भी बाहरी संसाधन, सुविधा या मान्यता की कमी को पूरा कर सकता है — सच्चा गुरु भीतर की श्रद्धा में भी बस सकता है, केवल बाहरी उपस्थिति में नहीं।" }
+];
+
+const gyanTopics = [
+  { title:"माया का रहस्य — क्या यह जगत सत्य है या स्वप्न?", meta:"जागृति और स्वप्न के बीच की पतली रेखा", body:"रात को जब तुम स्वप्न देखते हो, उस पल में वह स्वप्न तुम्हें पूर्णतः सत्य लगता है — उसमें दर्द भी सच लगता है, प्रेम भी, भय भी। स्वप्न में तुम कभी नहीं पूछते 'क्या यह सच है?' — क्योंकि उसी क्षण तुम्हारी पूरी चेतना उस स्वप्न में डूबी होती है। सुबह आँख खुलते ही वह पूरा संसार एक क्षण में मिथ्या हो जाता है। शंकराचार्य ने कहा कि जिस प्रकार स्वप्न जागने पर झूठा सिद्ध होता है, उसी प्रकार यह जाग्रत संसार भी किसी उच्चतर जागृति — आत्मज्ञान — के प्रकाश में मिथ्या सिद्ध हो सकता है। इसे माया कहा गया — न यह पूर्णतः सत्य है, न पूर्णतः असत्य, बल्कि सत्य जैसा प्रतीत होने वाला एक प्रवाह है, ठीक वैसे ही जैसे रस्सी अंधेरे में सांप जैसी दिखती है। जब तक भय बना रहता है, सांप सच लगता है; जैसे ही प्रकाश आता है, पता चलता है कि वहां कभी सांप था ही नहीं, केवल रस्सी थी।", rahasya:"अगर यह पूरा जगत माया है, तो इसका अर्थ यह नहीं कि तुम्हें कर्म करना छोड़ देना है — बल्कि यह समझना है कि जिस चीज़ को तुम इतनी गंभीरता से पकड़े हुए हो, वह उतनी ठोस नहीं जितनी दिखती है। जिस दिन यह अनुभव भीतर उतर जाता है, उस दिन जीवन का हर दुख अपनी पकड़ ढीली कर देता है — क्योंकि दुख भी तो उसी स्वप्न का हिस्सा है। और सबसे गहरी बात यह है — जिसे तुम 'मैं' सपना देख रहा हूं कहते हो, वह देखने वाला स्वयं भी उसी माया के भीतर एक पात्र है; असली प्रश्न यह नहीं कि जगत सच है या झूठ, बल्कि यह है कि 'देखने वाला' कौन है — और वही खोज अंततः तुम्हें माया के पार ले जाती है।" },
+  { title:"तुम कौन हो? — अहम् ब्रह्मास्मि का रहस्य", meta:"शरीर, मन और उस पार की सत्ता", body:"जरा रुककर सोचो — तुम अपने शरीर को 'मेरा शरीर' कहते हो, अपने मन को 'मेरा मन' कहते हो, अपने विचारों को 'मेरे विचार' कहते हो। जो वस्तु 'मेरी' है, वह तुम स्वयं कैसे हो सकती है? जिसके पास घड़ी है, वह घड़ी नहीं है। जिसके पास शरीर है, वह शरीर नहीं है। तो फिर वह कौन है जो देख रहा है, सुन रहा है, सोच रहा है, और यह सब पढ़ रहा है? उपनिषदों ने वर्षों की खोज के बाद यह घोषणा की — तुम वही परम चेतना हो जो सम्पूर्ण ब्रह्मांड में व्याप्त है, केवल एक शरीर के चश्मे से स्वयं को देख रही हो। यह कोई सिद्धांत नहीं, एक प्रत्यक्ष अनुभव है, जिसे शब्दों में उतारना वैसा ही है जैसे समुद्र को एक घड़े में भरने की कोशिश करना।", rahasya:"जिस दिन यह प्रश्न — मैं कौन हूं — केवल बुद्धि से नहीं, हृदय की गहराई से पूछा जाता है, उस दिन धीरे-धीरे यह अहसास होने लगता है कि 'मैं' नाम, आयु, शरीर या पद नहीं हूं — मैं वह साक्षी हूं जिसके सामने यह सारा नाटक चल रहा है, और वह साक्षी न कभी जन्मा, न कभी मरेगा। इससे भी गहरी बात यह है कि यह खोज कभी पूरी तरह 'समझी' नहीं जाती, केवल 'हुई' जाती है — जैसे नींद को कोई प्रयास से नहीं ला सकता, बस उसमें उतर सकता है, वैसे ही यह आत्मज्ञान प्रयास के अंत में, मौन में घटित होता है, प्रयास के दौरान नहीं।" },
+  { title:"समय एक भ्रम है — शाश्वत वर्तमान का रहस्य", meta:"भूत और भविष्य केवल मन में होते हैं", body:"थोड़ा गौर करो — भूतकाल कहां है? वह अब केवल एक स्मृति है, जो इसी वर्तमान क्षण में मन के भीतर घूम रही है। भविष्य कहां है? वह अब केवल एक कल्पना है, जो इसी वर्तमान क्षण में सोची जा रही है। जो कुछ भी कभी घटित हुआ है, और जो कुछ भी कभी घटित होगा — वह सब हमेशा 'अभी' में ही घटित होता है। यही कारण है कि पुराणों में काल को चक्र कहा गया, रेखा नहीं — क्योंकि जो चीज़ हमेशा वर्तमान में ही घटती है, उसे आगे-पीछे बांटना केवल मन की एक युक्ति है, वास्तविकता नहीं।", rahasya:"जिस दिन कोई व्यक्ति इस सत्य को गहराई से जी लेता है कि केवल यह क्षण ही वास्तविक है — न बीता हुआ कल, न आने वाला कल — उस दिन पछतावे और चिंता, दोनों की जड़ें कट जाती हैं। तब जीवन एक बोझ नहीं, एक निरंतर बहता हुआ, ताज़ा अनुभव बन जाता है। और इससे भी आगे एक रहस्य है — यदि समय स्वयं मन की रचना है, तो जो चेतना इस समय को देख रही है, वह स्वयं समय से बाहर, समय से पुरानी होनी चाहिए; यही चेतना वह तत्व है जिसे शास्त्रों ने 'नित्य', 'सनातन' कहा — जो कभी बदलता नहीं, केवल उसके सामने दृश्य बदलते रहते हैं।" },
+  { title:"मृत्यु है ही नहीं — केवल परिवर्तन है", meta:"जो कभी जन्मा नहीं, वह मर भी नहीं सकता", body:"श्रीकृष्ण ने युद्धभूमि में अर्जुन से कहा कि आत्मा को न शस्त्र काट सकते हैं, न अग्नि जला सकती है, न जल भिगो सकता है, न वायु सुखा सकती है — क्योंकि आत्मा अजन्मा, नित्य, शाश्वत और सनातन है। जो शरीर मरता हुआ दिखता है, वह केवल एक वस्त्र है जिसे आत्मा त्याग रही है, जैसे मनुष्य पुराना वस्त्र त्यागकर नया धारण करता है। मृत्यु के भय का असली कारण यह नहीं कि हम मिट जाएंगे, बल्कि यह है कि हमने स्वयं को कभी शरीर और मन से अलग पहचाना ही नहीं।", rahasya:"जिस क्षण मनुष्य को यह अनुभव हो जाता है कि 'मैं' शरीर नहीं, उस अविनाशी चेतना का अंश हूं जो शरीर के भीतर से देख रही है — उसी क्षण मृत्यु का भय हमेशा के लिए विलीन हो जाता है। तब जीवन जीने का ढंग पूरी तरह बदल जाता है — भय से नहीं, निर्भयता से। एक और गहरी बात यह है कि जिस प्रकार जन्म से पहले भी 'तुम' किसी न किसी रूप में थे (पंचतत्वों के रूप में), उसी प्रकार तथाकथित मृत्यु के बाद भी तुम्हारा मिटना असंभव है — केवल रूप बदलता है, अस्तित्व कभी नहीं मिटता, यही प्रकृति का सबसे मौलिक नियम है।" },
+  { title:"हर वस्तु में परमात्मा है — एकत्व का रहस्य", meta:"जो पेड़ में है, वही तुझमें भी है", body:"सनातन दृष्टि यह सिखाती है कि जो चेतना नदी में बह रही है, वही चेतना पर्वत में स्थिर है, वही पक्षी में उड़ रही है, वही तुम्हारे भीतर सोच रही है। भेद केवल रूप, आकार और नाम का है — भीतर की सत्ता एक ही है। यही कारण है कि सनातन परंपरा में नदी, पर्वत, वृक्ष, पशु — सभी में देवत्व देखा गया, क्योंकि 'दूसरा' नाम की कोई चीज़ गहराई में है ही नहीं।", rahasya:"जिस दिन यह दृष्टि भीतर जग जाती है, उस दिन किसी को चोट पहुंचाना अपने आप को चोट पहुंचाने जैसा लगने लगता है, और किसी की सहायता करना अपने ही किसी अंग की सेवा करने जैसा — क्योंकि तब 'मैं' और 'तू' के बीच की दीवार पतली पड़ने लगती है। इसका सबसे गहरा परिणाम यह है कि द्वेष, ईर्ष्या और घृणा जैसी भावनाएं स्वाभाविक रूप से कमज़ोर पड़ने लगती हैं — क्योंकि जिससे तुम घृणा करते हो, गहराई में वह भी वही एक चेतना है जो तुम स्वयं हो, केवल एक अलग मुखौटे में।" },
+  { title:"मौन में छुपा ज्ञान — शब्दों से परे सत्य", meta:"जो कहा जा सके, वह पूर्ण सत्य नहीं", body:"एक प्रसिद्ध कथा है — एक शिष्य ने गुरु से ब्रह्म के विषय में बार-बार पूछा। गुरु मौन रहे। शिष्य ने सोचा गुरु उत्तर नहीं जानते। अंततः गुरु ने कहा — मैं उत्तर दे रहा हूं, पर तुम केवल शब्द सुनना चाहते हो। ब्रह्म को शब्दों में बांधना वैसा ही है जैसे मुट्ठी में हवा बांधना — जितना कसकर पकड़ो, उतना ही फिसल जाता है। सबसे गहरे सत्य शब्दों से नहीं, अनुभव से जाने जाते हैं — जैसे मिठास शब्द से नहीं, चखने से पता चलती है।", rahasya:"इसीलिए ध्यान और मौन को ज्ञान मार्ग का उच्चतम साधन माना गया — क्योंकि जब मन की चंचलता और शब्दों का शोर थम जाता है, तभी वह सत्य स्वयं प्रकट होता है जिसे कोई भाषण, कोई पुस्तक, कोई प्रवचन पूरी तरह व्यक्त नहीं कर सकता। यहां तक कि यह पूरा लेख भी, जितनी गहराई से लिखा गया हो, अंततः केवल एक ऊँगली है जो चांद की ओर इशारा करती है — ऊँगली को घूरते रहने से चांद कभी नहीं दिखेगा, नज़र उस दिशा में उठानी होगी जिस ओर इशारा हो रहा है।" }
+];
+
+const guptTopics = [
+  { title:"महाकाल का रहस्य — जो समय को भी निगल जाता है", meta:"अत्यंत गूढ़ — बहुत कम लोग इस पर मनन करते हैं", body:"शिव के एक रूप को 'महाकाल' कहा जाता है — काल का भी काल, अर्थात समय जिसके सामने स्वयं झुकता है। साधारण मनुष्य समय के भीतर जीता है — जन्म, बचपन, बुढ़ापा, मृत्यु — यह सब समय की धारा में बहते हुए घटित होता है। परंतु महाकाल की अवधारणा यह कहती है कि एक ऐसी सत्ता भी है जो इस धारा के बाहर, इसके पार खड़ी है — जिसके लिए न बीता कल है, न आने वाला कल, केवल एक अनंत, ठहरा हुआ 'अभी' है। काली, जो महाकाल की शक्ति हैं, उन्हें समय और मृत्यु दोनों को निगलने वाली देवी कहा गया है — उनका काला रंग उस अनंत अंधकार का प्रतीक है जिसमें से सारा प्रकाश और सारा समय जन्म लेता है, और अंततः उसी में विलीन हो जाता है।", rahasya:"जो व्यक्ति यह गहराई से समझ लेता है कि 'मैं समय के भीतर की एक घटना नहीं, बल्कि समय को देखने वाली वह चेतना हूं जो कभी बदलती नहीं' — उसके लिए बुढ़ापे और मृत्यु का भय अपना अर्थ खो देता है। यह ज्ञान सामान्यतः छुपाकर रखा गया, क्योंकि इसे बिना गहरी परिपक्वता के सुनने से लोग जीवन के प्रति उदासीन या लापरवाह हो सकते हैं — जबकि इसका सही अर्थ है निर्भयता, न कि उपेक्षा। सबसे गहरी परत यह है कि काली का 'विनाश' वास्तव में समय के भ्रम का विनाश है — जिस दिन मनुष्य के भीतर समय का भय मरता है, उसी क्षण को शास्त्रों में 'काली की कृपा' कहा गया है, न कि किसी बाहरी घटना को।" },
+  { title:"शून्य का रहस्य — जब कुछ भी नहीं ही सब कुछ है", meta:"अघोर और तंत्र दर्शन का गहनतम बिंदु", body:"साधारण मन के लिए शून्य (कुछ भी न होना) भयावह लगता है — खालीपन, अकेलापन, अंत। परंतु तंत्र और अद्वैत दर्शन की सबसे गहरी परतों में शून्य को भय की नहीं, बल्कि परम पूर्णता की अवस्था माना गया है। जिस प्रकार एक कमरे की उपयोगिता उसकी दीवारों में नहीं, बल्कि उसके भीतर के खाली स्थान में है, उसी प्रकार सृष्टि की सारी हलचल, सारे रूप, उसी अनंत शून्य के भीतर घट रहे हैं, जो न कभी भरता है न कभी घटता है। अघोर परंपरा में श्मशान (जहां शरीर अंततः राख हो जाता है) को शिक्षा-स्थल माना गया है — न भय के कारण, बल्कि इसलिए कि वहां रूप की नश्वरता और शून्य की स्थायित्व, दोनों एक साथ प्रत्यक्ष दिखते हैं।", rahasya:"यह ज्ञान इसलिए बहुत कम लोगों तक पहुंचता है क्योंकि इसे समझने से पहले साधक का मन पर्याप्त स्थिर और निर्भय होना आवश्यक है — अन्यथा शून्य की बात सुनकर मन जीवन से विमुख या भयभीत हो सकता है, जबकि इसका वास्तविक संदेश है: रूपों से मोह टूटते ही, जो शेष रहता है, वही सबसे बड़ी शांति है। एक और गहन संकेत यह है कि गणित में भी शून्य से ही सारी संख्याएं जन्म लेती हैं (0 के बिना 10, 100 संभव नहीं) — यह भारतीय दर्शन और भारतीय गणित का वही मूल सूत्र है: शून्य कुछ नहीं है, इसीलिए वह सब कुछ बनने की क्षमता रखता है।" },
+  { title:"स्पंद — सृष्टि की पहली धड़कन", meta:"कश्मीर शैव दर्शन का अति गूढ़ सिद्धांत", body:"कश्मीर शैव परंपरा में एक अत्यंत सूक्ष्म अवधारणा है — 'स्पंद', अर्थात वह प्रथम, सूक्ष्मतम कंपन या धड़कन जिससे स्थिर, निर्गुण चेतना ने पहली बार गति ग्रहण की और सृष्टि का खेल आरंभ हुआ। यह न ध्वनि है, न प्रकाश, न पदार्थ — यह उस सबसे भी पहले की अवस्था है, जैसे एक तालाब में पहला कंपन जिससे लहरें बनना शुरू होती हैं, जबकि तालाब का जल स्वयं शांत ही बना रहता है। मनुष्य के भीतर भी यही स्पंद हर श्वास, हर विचार, हर धड़कन के मूल में सक्रिय माना गया है — यह वह सूक्ष्म शक्ति है जो जड़ता और चेतना के बीच का सेतु है।", rahasya:"साधक जब गहन ध्यान में इतना स्थिर हो जाता है कि विचारों की हलचल शांत पड़ने लगती है, तब कभी-कभी इसी मूल स्पंद की झलक मिलती है — वह क्षण जहां सृष्टि और सृष्टिकर्ता के बीच कोई भेद नहीं रहता, केवल एक सूक्ष्म, जीवंत कंपन शेष रहता है। इस दर्शन की सबसे साहसिक बात यह है कि यह संसार को माया कहकर त्यागने को नहीं कहता, बल्कि कहता है कि यही स्पंदन ही शिव की स्वतंत्र इच्छा है, इसलिए हर श्वास, हर गति, हर सृजनात्मक कार्य स्वयं में एक दिव्य उत्सव है, न कि बंधन।" },
+  { title:"तुरीय — चेतना की चौथी अवस्था", meta:"माण्डूक्य उपनिषद का सबसे गुप्त ज्ञान", body:"साधारणतः चेतना की तीन अवस्थाएं मानी जाती हैं — जाग्रत (जागना), स्वप्न (सोते हुए सपना देखना), और सुषुप्ति (गहरी, स्वप्नरहित नींद)। परंतु माण्डूक्य उपनिषद एक चौथी अवस्था की बात करता है — 'तुरीय', जो इन तीनों के पीछे सदा उपस्थित रहती है, इन तीनों को देखने वाली साक्षी चेतना। तुम जाग्रत अवस्था में भी हो, और उसे देखने वाला भी हो; स्वप्न में भी हो, और उसे देखने वाला भी; गहरी नींद में भी हो, और बाद में यह जानने वाले भी कि 'मुझे गहरी, सुखद नींद आई' — भले ही उस समय कोई विचार सक्रिय नहीं था। यह देखने वाला तत्व — तुरीय — कभी सोता नहीं, कभी जागता नहीं, कभी सपना नहीं देखता, वह सदा एकरस, अपरिवर्तनीय साक्षी है।", rahasya:"यह ज्ञान बहुत कम सिखाया जाता है क्योंकि इसे बौद्धिक रूप से समझना आसान है, पर अनुभव करना अत्यंत दुर्लभ — केवल गहनतम ध्यान अवस्था में ही तुरीय की झलक मिलती है, और उस झलक के बाद जीवन को देखने का नज़रिया पूरी तरह बदल जाता है, क्योंकि तब पता चलता है कि 'मैं' कभी सोया ही नहीं, कभी जागा ही नहीं — मैं सदा वैसा ही रहा। इससे भी सूक्ष्म बात यह है कि तुरीय को चौथी अवस्था कहना भी अधूरा है — असल में यह कोई 'अवस्था' नहीं, बल्कि वह आधार है जिस पर बाकी तीनों अवस्थाएं आती-जाती हैं, जैसे स्क्रीन पर फिल्म चलती है पर स्क्रीन स्वयं फिल्म का हिस्सा नहीं होती।" },
+  { title:"चिदाकाश — चेतना का अनंत आकाश", meta:"वह स्थान जहां विचार जन्म लेते और मिटते हैं", body:"जिस प्रकार आकाश में बादल बनते हैं, तैरते हैं, और मिट जाते हैं, पर आकाश स्वयं न बनता है न मिटता है — उसी प्रकार मन में विचार, भावनाएं और स्मृतियां उठती हैं, ठहरती हैं, और विलीन हो जाती हैं, पर उन सबको धारण करने वाला वह आकाश जैसा तत्व — 'चिदाकाश' (चेतना का आकाश) — सदा अपरिवर्तित रहता है। अधिकांश मनुष्य अपने बादलों (विचारों) को ही अपना असली स्वरूप मान बैठते हैं, और इसीलिए हर विचार, हर भावना के साथ स्वयं को उलझा हुआ, अस्थिर अनुभव करते हैं।", rahasya:"जो साधक यह देखना सीख लेता है कि 'मैं विचार नहीं, बल्कि वह आकाश हूं जिसमें विचार आते-जाते हैं' — उसके लिए क्रोध, भय, दुख जैसी तीव्र भावनाएं भी बादलों की तरह आती और गुज़र जाती हैं, बिना उस अनंत आकाश को छुए। यह वह गुप्त कुंजी है जिसे अधिकांश धर्मग्रंथ केवल संकेत में छोड़ देते हैं, स्पष्ट शब्दों में नहीं कहते। इसका व्यावहारिक रहस्य यह है कि अगली बार जब कोई तीव्र भावना उठे, तो उससे लड़ने या उसे दबाने के बजाय केवल यह पूछना है — 'क्या यह भावना मुझे छू रही है, या मैं वह आकाश हूं जिसमें यह तैर रही है?' — यही प्रश्न धीरे-धीरे उस आकाश का अनुभव करा देता है।" },
+  { title:"ॐ का रहस्य — सृष्टि की मूल ध्वनि", meta:"एक अक्षर में समाया संपूर्ण ब्रह्मांड", body:"'ॐ' को केवल एक मंत्र या धार्मिक ध्वनि नहीं, बल्कि सृष्टि की मूल कंपन-ध्वनि माना गया है, जिससे समस्त सृष्टि की उत्पत्ति हुई। इसके तीन ध्वनि-भाग — अ, उ, म — क्रमशः जाग्रत, स्वप्न और सुषुप्ति अवस्थाओं के प्रतीक हैं, और इसके बाद आने वाला मौन (जब ध्वनि पूर्णतः शांत हो जाती है) तुरीय अवस्था का प्रतीक है। इस प्रकार एक ही ध्वनि में चेतना की चारों अवस्थाओं का पूरा नक्शा समाया हुआ है।", rahasya:"जब कोई साधक गहराई से 'ॐ' का उच्चारण करता है और उसके बाद आने वाले मौन में स्थिर रहता है, तब वह प्रतीकात्मक रूप से जाग्रत से स्वप्न, स्वप्न से सुषुप्ति, और अंततः तुरीय तक की यात्रा कर रहा होता है — यही कारण है कि इस एक अक्षर को सबसे शक्तिशाली और सबसे गूढ़ मंत्र माना गया है, जिसका पूरा रहस्य बहुत कम साधकों तक पहुंच पाता है। सबसे गहरा संकेत यह है कि ध्वनि के बाद आने वाला मौन ही असली 'ॐ' है, ध्वनि तो केवल उस मौन तक पहुंचने की सीढ़ी है — इसीलिए कहा गया कि ओंकार का जप उतना महत्वपूर्ण नहीं जितना जप के बाद का वह मौन क्षण, जहां जपने वाला भी विलीन हो जाता है।" },
+  { title:"नाद ब्रह्म — ध्वनि ही परम सत्य है", meta:"जब संगीत साधना का सबसे ऊंचा मार्ग बन जाए", body:"भारतीय संगीत परंपरा में 'नाद ब्रह्म' की अवधारणा है — अर्थात ध्वनि (नाद) स्वयं ब्रह्म है। दो प्रकार के नाद बताए गए हैं — 'आहत नाद' (जो किसी वाद्य या कंठ से टकराकर उत्पन्न होता है, यानी सुना जा सकने वाला संगीत) और 'अनाहत नाद' (वह सूक्ष्म ध्वनि जो बिना किसी टकराव के, सृष्टि में सदा गूंजती रहती है, जिसे केवल गहन ध्यान में सुना जा सकता है)। इसी कारण शास्त्रीय संगीत साधकों को 'नाद योगी' भी कहा गया, जो संगीत के माध्यम से सीधे परमात्मा तक पहुंचने का प्रयास करते हैं।", rahasya:"यह अत्यंत कम लोगों तक पहुंचने वाला ज्ञान है क्योंकि इसे समझने के लिए संगीत को मनोरंजन नहीं, बल्कि साधना के रूप में देखना पड़ता है — जब कोई गायक या वादक इतना डूब जाता है कि 'मैं गा रहा हूं' का भाव मिट जाता है और केवल स्वर शेष रहता है, वही क्षण अनाहत नाद के सबसे निकट माना जाता है।" },
+  { title:"बिंदु का रहस्य — एक बिंदु में समाया अनंत", meta:"श्री यंत्र के केंद्र का सबसे गूढ़ अर्थ", body:"श्री यंत्र और अनेक तांत्रिक चित्रों के ठीक केंद्र में एक छोटा सा बिंदु होता है, जिसे 'बिंदु' कहा जाता है। यह बिंदु उस अव्यक्त, अविभाज्य चेतना का प्रतीक है जिससे सारे त्रिकोण, सारी रेखाएं और अंततः सारी सृष्टि फैलती है — ठीक वैसे ही जैसे गणित में एक बिंदु का कोई आयाम (लंबाई-चौड़ाई) नहीं होता, फिर भी उसी से पूरी रेखा और आकृति बनती है।", rahasya:"सबसे गहरा संकेत यह है कि जिस प्रकार यंत्र का पूरा विस्तार उस एक अदृश्य बिंदु से शुरू होता है, उसी प्रकार तुम्हारे भीतर भी एक ऐसा बिंदु है — तुम्हारी मूल चेतना — जो स्वयं निराकार होते हुए भी तुम्हारे सारे विचारों, भावनाओं और अनुभवों के फैलाव का स्रोत है। ध्यान की गहनतम अवस्था में साधक इसी बिंदु तक वापस लौटने का प्रयास करता है।" }
+];
+
+const jeevanTopics = [
+  { title:"ध्यान — दिन में केवल 10 मिनट", meta:"सबसे पहला और सबसे ज़रूरी कदम", body:"जो भी गहरा ज्ञान इस ऐप में पढ़ा, वह केवल पढ़ने से जीवन में नहीं उतरता — उसे अनुभव करना पड़ता है, और अनुभव का द्वार है ध्यान। रोज़ सुबह या रात को सोने से पहले, किसी शांत जगह बैठकर केवल 5-10 मिनट आँखें बंद करके अपनी श्वास को देखो — कुछ बदलने की कोशिश मत करो, बस देखो कि श्वास अंदर जा रही है, बाहर आ रही है। जब मन भटके (और भटकेगा ज़रूर), बिना खुद पर गुस्सा हुए धीरे से वापस श्वास पर ले आओ। यही वह अभ्यास है जिससे 'साक्षी भाव' (जो चीज़ें देखता है, उनमें उलझता नहीं) धीरे-धीरे मजबूत होता है।", rahasya:"जीवन में उतारना: शुरुआत में यह उबाऊ या मुश्किल लगेगा, यही सामान्य है। जिस दिन बिना नागा किए 21 दिन यह अभ्यास कर लोगे, उसी दिन से फर्क खुद महसूस होने लगेगा — गुस्सा जल्दी नहीं आएगा, मन ज़्यादा शांत रहेगा।" },
+  { title:"स्वाध्याय — रोज़ थोड़ा गहरा पढ़ना और सोचना", meta:"ज्ञान को याद रखने की नहीं, जीने की आदत", body:"पुराने ऋषियों ने कहा — स्वाध्याय अर्थात स्वयं का अध्ययन, केवल किताब पढ़ना नहीं। रोज़ इस ऐप का एक टॉपिक पढ़ो, फिर उसे बंद करके 2 मिनट आँखें बंद करके सोचो — 'इसका मेरे आज के दिन से क्या संबंध है?' उदाहरण के लिए, अगर आज 'माया के रहस्य' वाला टॉपिक पढ़ा, तो सोचो कि आज दिन में किस चीज़ को लेकर तुमने ज़रूरत से ज़्यादा तनाव लिया, और क्या वह सच में इतना गंभीर था।", rahasya:"जीवन में उतारना: ज्ञान को एक जानकारी की तरह मत रखो, एक आईना बनाओ — हर टॉपिक से अपने आज के व्यवहार को जोड़कर देखने की आदत डालो, तभी यह किताबी ज्ञान जीवन का हिस्सा बनता है।" },
+  { title:"निष्काम कर्म — फल की चिंता छोड़कर काम करना", meta:"पढ़ाई, काम और रिश्तों में गीता का उपयोग", body:"गीता का सबसे व्यावहारिक सिद्धांत है — जो भी काम करो, उसे पूरी ईमानदारी और मेहनत से करो, पर परिणाम को लेकर मन में चिपकाव मत रखो। जैसे पढ़ाई में — पूरी मेहनत करो, पर मार्क्स को लेकर दिन-रात चिंता में मत डूबो। इससे उल्टा असर होता है — जब चिंता कम होती है, ध्यान बेहतर लगता है, और नतीजा अक्सर अपने आप बेहतर आता है।", rahasya:"जीवन में उतारना: अगली बार किसी परीक्षा, प्रोजेक्ट या मुश्किल काम से पहले खुद से कहो — 'मैं अपना सौ प्रतिशत दूंगा, बाकी जो होना है वह होगा' — यह एक वाक्य मन का आधा बोझ उतार देता है।" },
+  { title:"ब्रह्मचर्य — ऊर्जा और अनुशासन का पहला पाठ", meta:"जीवन की पहली अवस्था — विद्यार्थी काल", body:"सनातन परंपरा में जीवन को चार अवस्थाओं (आश्रमों) में बांटा गया है — ब्रह्मचर्य, गृहस्थ, वानप्रस्थ और संन्यास। इनमें पहली अवस्था 'ब्रह्मचर्य' है, जो विद्यार्थी जीवन की अवस्था है। इस अवस्था का मूल उद्देश्य है — अपनी ऊर्जा, समय और ध्यान को शिक्षा, अनुशासन और चरित्र-निर्माण पर केंद्रित करना, बजाय इसके कि वह व्यर्थ की चीज़ों में बिखर जाए। इसका अर्थ केवल एक नियम नहीं, बल्कि एक जीवन-शैली है — समय पर सोना-जागना, गुरुजनों और माता-पिता का सम्मान करना, अनुशासन से पढ़ाई करना, इंद्रियों (आंख, कान, जीभ, मन) पर नियंत्रण रखना ताकि ध्यान भटके नहीं, और फालतू आदतों (जैसे बिना ज़रूरत मोबाइल-टीवी में समय बर्बाद करना, गलत संगत) से बचना।", rahasya:"जीवन में उतारना: ब्रह्मचर्य का सीधा मतलब है — अपनी ऊर्जा बचाना और सही दिशा में लगाना। जैसे एक बांध पानी को बिखरने से रोककर बिजली बनाता है, वैसे ही अनुशासन और संयम मन की ऊर्जा को बिखरने से रोककर उसे पढ़ाई, कौशल और चरित्र-निर्माण में लगाता है। इस उम्र में सबसे ज़रूरी है — अच्छी संगत, नियमित दिनचर्या, खेल या व्यायाम से शरीर को स्वस्थ रखना, और किसी एक लक्ष्य पर ध्यान केंद्रित करना। यही अनुशासन आगे चलकर जीवन के हर क्षेत्र में सफलता की नींव बनता है।" },
+  { title:"सेवा — बिना बदले की उम्मीद के मदद करना", meta:"एकत्व के ज्ञान को व्यवहार में लाना", body:"जो 'हर वस्तु में परमात्मा है' वाला ज्ञान पढ़ा, उसे जीने का सबसे आसान तरीका है — सेवा। घर में बिना कहे किसी छोटे काम में माता-पिता की मदद करना, किसी दोस्त की पढ़ाई में सहायता करना, या किसी ज़रूरतमंद की छोटी सी मदद करना — यह सब उसी एकत्व के भाव का व्यावहारिक रूप है।", rahasya:"जीवन में उतारना: हफ्ते में कम से कम एक बार, बिना किसी बदले की उम्मीद के, किसी की मदद करने का प्रयास करो — और उसके बाद अपने मन में आए भाव को ध्यान से महसूस करो, वही असली संतोष है जिसकी बात शास्त्रों में की गई है।" },
+  { title:"संतोष — जो है उसमें खुश रहना सीखना", meta:"लक्ष्मी और माया वाले ज्ञान का व्यावहारिक पक्ष", body:"आधुनिक जीवन लगातार यह सिखाता है कि जो नहीं है, केवल उसी पर ध्यान दो — नया फोन, बेहतर मार्क्स, ज़्यादा पैसा। पर सनातन ज्ञान सिखाता है कि जो अभी है, पहले उसके लिए आभार महसूस करो, फिर आगे बढ़ने की मेहनत करो। यह आलस्य नहीं, बल्कि मानसिक शांति की नींव है।", rahasya:"जीवन में उतारना: रोज़ सोने से पहले तीन चीज़ें याद करो जिनके लिए आज आभारी हो, चाहे वे कितनी भी छोटी क्यों न हों — यह सामान्य सी आदत धीरे-धीरे मन की बेचैनी को शांत करती है।" }
+];
+
+const tantraTopics = [
+  { title:"तंत्र क्या है — गलतफहमी और असली अर्थ", meta:"पहले यह जानना ज़रूरी है कि तंत्र काला जादू नहीं", body:"आम बोलचाल में 'तंत्र-मंत्र' को अक्सर काला जादू या डरावनी चीज़ समझ लिया जाता है, जबकि 'तंत्र' शब्द का असली अर्थ है 'विधि' या 'तकनीक' — अर्थात शरीर, मन और ऊर्जा के माध्यम से आत्मज्ञान तक पहुंचने की एक व्यवस्थित पद्धति। यह वेदों जितनी ही प्राचीन परंपरा है, जिसमें शिव-शक्ति (चेतना और ऊर्जा) के मिलन को सृष्टि का आधार माना गया है। तंत्र में शरीर को त्यागने की नहीं, बल्कि शरीर और इंद्रियों के माध्यम से ही उच्चतम चेतना तक पहुंचने की बात कही गई है — इसीलिए इसे 'जीवन को नकारने वाला नहीं, जीवन को गले लगाने वाला मार्ग' कहा जाता है।", rahasya:"असली रहस्य यह है कि तंत्र का उद्देश्य किसी को नुकसान पहुंचाना या किसी पर 'काबू' पाना कभी नहीं रहा — यह विकृति बाद के समय में कुछ स्वार्थी लोगों द्वारा फैलाई गई, जबकि मूल तंत्र शास्त्र आत्म-अनुशासन, ऊर्जा-जागरण और आत्मज्ञान पर केंद्रित है।" },
+  { title:"यंत्र — ऊर्जा का ज्यामितीय मानचित्र", meta:"श्री यंत्र जैसी पवित्र आकृतियों का रहस्य", body:"यंत्र एक ज्यामितीय आकृति है — त्रिकोण, वृत्त, बिंदु के संयोजन से बनी — जिसे किसी देवी-देवता की ऊर्जा का दृश्य प्रतीक माना जाता है। सबसे प्रसिद्ध है 'श्री यंत्र', जिसमें नौ आपस में जुड़े त्रिकोण होते हैं जो शिव (चेतना) और शक्ति (ऊर्जा) के मिलन और सृष्टि के विस्तार को दर्शाते हैं। साधक यंत्र पर एकाग्रचित्त होकर मन को स्थिर करने का अभ्यास करते हैं, ठीक वैसे ही जैसे किसी एक बिंदु पर ध्यान केंद्रित करने से मन की चंचलता कम होती है।", rahasya:"यंत्र का गहरा रहस्य यह है कि यह केवल एक चित्र नहीं, बल्कि ब्रह्मांड की रचना-प्रक्रिया का एक संक्षिप्त नक्शा है — केंद्र बिंदु (शून्य) से शुरू होकर बाहर की ओर फैलते त्रिकोण यह दिखाते हैं कि कैसे एक अविभाज्य चेतना से यह विविधतापूर्ण सृष्टि फैलती चली गई।" },
+  { title:"मंत्र और जप — ध्वनि से मन को साधना", meta:"शब्द की कंपन-शक्ति का विज्ञान", body:"मंत्र एक विशेष ध्वनि-संरचना है, जिसे बार-बार दोहराने (जप) से मन की बिखरी हुई ऊर्जा एक बिंदु पर केंद्रित होती है। हर मंत्र की अपनी एक ध्वनि-आवृत्ति (frequency) होती है, जो कहा जाता है कि मन और शरीर पर एक विशेष प्रभाव डालती है — जैसे 'ॐ' शांति और केंद्रीकरण के लिए, गायत्री मंत्र बुद्धि और स्पष्टता के लिए। परंपरा में मंत्र जप को माला (108 दानों की लड़ी) पर गिनते हुए किया जाता है, ताकि मन गिनती में भी लगा रहे और भटके नहीं।", rahasya:"मंत्र का सबसे गहरा रहस्य यह है कि असली शक्ति शब्दों में नहीं, बल्कि जप के दौरान बनने वाली एकाग्रता और भाव में है — बिना ध्यान और श्रद्धा के यंत्रवत रटा गया मंत्र वैसा ही है जैसे बिना समझे कोई भाषा बोलना; जबकि भाव और एकाग्रता के साथ किया गया जप मन को गहराई से शांत कर देता है।" },
+  { title:"मुद्रा — हाथों की भाषा, ऊर्जा की दिशा", meta:"शरीर विज्ञान और तंत्र का मिलन बिंदु", body:"मुद्रा का अर्थ है हाथों या शरीर की विशेष स्थिति, जिससे शरीर के भीतर बहने वाली ऊर्जा (प्राण) को एक विशेष दिशा या प्रभाव दिया जाता है। सबसे सामान्य है 'ज्ञान मुद्रा' — अंगूठे और तर्जनी उंगली को हल्के से मिलाना — जिसे एकाग्रता और शांति बढ़ाने वाला माना जाता है, और अक्सर ध्यान करते समय अपनाया जाता है। नृत्य और मूर्तिकला में भी देवी-देवताओं के हाथों की मुद्राएं (जैसे अभय मुद्रा — रक्षा का आश्वासन) विशेष अर्थ रखती हैं।", rahasya:"मुद्राओं का गहरा विचार यह है कि शरीर और मन आपस में गहराई से जुड़े हैं — शरीर की एक छोटी सी स्थिति भी मन की अवस्था को प्रभावित कर सकती है, ठीक वैसे ही जैसे मुस्कुराने से मन थोड़ा हल्का महसूस होने लगता है, भले ही मुस्कुराहट जबरदस्ती ही क्यों न हो।" },
+  { title:"चक्र — शरीर के भीतर के सात ऊर्जा केंद्र", meta:"मूलाधार से सहस्रार तक की यात्रा", body:"तांत्रिक और योगिक परंपरा में शरीर के भीतर रीढ़ की हड्डी के साथ सात ऊर्जा केंद्र माने गए हैं — मूलाधार (आधार, सुरक्षा), स्वाधिष्ठान (रचनात्मकता), मणिपुर (इच्छाशक्ति), अनाहत (हृदय, प्रेम), विशुद्धि (वाणी, अभिव्यक्ति), आज्ञा (अंतर्दृष्टि, तीसरी आँख), और सहस्रार (मुकुट, परम चेतना से जुड़ाव)। हर चक्र को एक अलग रंग, तत्व और भावनात्मक गुण से जोड़ा गया है, और माना जाता है कि जब यह ऊर्जा नीचे से ऊपर की ओर सहजता से प्रवाहित होती है, तब मनुष्य संतुलित और जाग्रत अनुभव करता है।", rahasya:"चक्रों की अवधारणा का गहरा संदेश यह है कि मनुष्य केवल शरीर और बुद्धि नहीं, बल्कि सुरक्षा से लेकर परम चेतना तक की एक पूरी सीढ़ी है — और जीवन की हर समस्या (चाहे भय हो, गुस्सा हो, या रचनात्मकता की कमी) को इसी सीढ़ी के किसी एक अवरुद्ध पायदान से जोड़कर समझा जा सकता है।" },
+  { title:"कुंडलिनी — सोई हुई आदि-शक्ति", meta:"सबसे शक्तिशाली और सबसे सावधानी वाला विषय", body:"तंत्र में माना जाता है कि मूलाधार चक्र में एक सर्पाकार, सोई हुई ऊर्जा — 'कुंडलिनी शक्ति' — विद्यमान है, जो साधना द्वारा जाग्रत होकर सातों चक्रों को भेदते हुए ऊपर सहस्रार तक पहुंचती है, और इस यात्रा को परम आत्मज्ञान और शिव-शक्ति के मिलन का प्रतीक माना जाता है। यह अवधारणा सृष्टि की मूल ऊर्जा को मनुष्य के भीतर ही खोजने का सबसे गहरा प्रयास है।", rahasya:"यहां एक बहुत ज़रूरी बात स्पष्ट रूप से कहनी होगी — परंपरा स्वयं यह चेतावनी देती है कि कुंडलिनी जागरण अत्यंत सूक्ष्म और शक्तिशाली प्रक्रिया है, जिसे बिना किसी अनुभवी और भरोसेमंद गुरु के प्रत्यक्ष मार्गदर्शन के, केवल किताब या ऐप पढ़कर स्वयं करने की कोशिश करना खतरनाक बताया गया है — इससे मानसिक और शारीरिक असंतुलन हो सकता है। इसलिए यहां इसे केवल एक अवधारणा के रूप में समझना ही सही है, इसे स्वयं 'करने' का प्रयास कभी न करें।" },
+  { title:"नाड़ी — इड़ा, पिंगला और सुषुम्ना", meta:"शरीर के भीतर बहने वाली तीन मुख्य ऊर्जा-धाराएं", body:"तांत्रिक शरीर-विज्ञान में रीढ़ की हड्डी के साथ तीन प्रमुख सूक्ष्म ऊर्जा-नाड़ियां मानी गई हैं — 'इड़ा' (बाईं ओर, शीतल और चंद्र-स्वभाव, मानसिक-भावनात्मक ऊर्जा), 'पिंगला' (दाईं ओर, उष्ण और सूर्य-स्वभाव, शारीरिक-सक्रिय ऊर्जा), और इनके बीच 'सुषुम्ना' (केंद्रीय, आध्यात्मिक जागरण का मार्ग)। सामान्यतः मनुष्य का श्वास कभी बाईं तो कभी दाईं नासिका से अधिक चलता है, जो इड़ा-पिंगला के बदलते संतुलन का संकेत माना जाता है।", rahasya:"गहरा संकेत यह है कि जब दोनों नाड़ियों (इड़ा-पिंगला) की ऊर्जा संतुलित हो जाती है, तभी सुषुम्ना में ऊर्जा प्रवाहित होने का मार्ग खुलता है — अर्थात आध्यात्मिक जागरण किसी एक अति (अत्यधिक भावुकता या अत्यधिक सक्रियता) से नहीं, बल्कि दोनों के बीच के संतुलन से ही संभव है।" },
+  { title:"पंचतत्व साधना — शरीर में पांच तत्वों का संतुलन", meta:"पृथ्वी, जल, अग्नि, वायु, आकाश का व्यावहारिक ज्ञान", body:"तंत्र और आयुर्वेद दोनों में यह माना जाता है कि मनुष्य का शरीर पांच मूल तत्वों — पृथ्वी (ठोसता, हड्डियां), जल (तरलता, रक्त), अग्नि (पाचन, ऊर्जा), वायु (श्वास, गति) और आकाश (शरीर के भीतर की खाली जगह, चेतना का स्थान) — से मिलकर बना है। परंपरा में माना गया कि जब यह पांचों तत्व संतुलन में होते हैं, तब शरीर और मन दोनों स्वस्थ रहते हैं, और असंतुलन ही रोग और अशांति की जड़ माना गया।", rahasya:"व्यावहारिक रहस्य यह है कि पांचों उंगलियों को भी इन्हीं पांच तत्वों का प्रतीक माना गया है (अंगूठा-अग्नि, तर्जनी-वायु, मध्यमा-आकाश, अनामिका-पृथ्वी, कनिष्ठा-जल) — इसीलिए विभिन्न मुद्राओं में उंगलियों के अलग-अलग संयोजन से शरीर के भीतर के तत्वों का सूक्ष्म संतुलन साधने का प्रयास किया जाता है।" }
+];
+
+const bhaktCharitList = [
+  { title:"श्री हित प्रेमानंद जी महाराज", meta:"वृंदावन के वर्तमान संत — राधा-कृष्ण भक्ति के जीवंत प्रतीक", body:"श्री हित प्रेमानंद जी महाराज एक वर्तमान समय के जीवित संत हैं, जो वृंदावन में निवास करते हैं। उनका जन्म 30 मार्च 1969 को उत्तर प्रदेश के मथुरा जिले के छाता क्षेत्र में हुआ था। उनके पिता शंभूनाथ पांडे और माता रमा देवी अत्यंत धार्मिक स्वभाव के थे, और उनके दादा तथा बाद में पिता ने भी संन्यास ग्रहण किया था — घर का वातावरण भागवत गीता पाठ और संतों की सेवा से परिपूर्ण था। मात्र 13 वर्ष की आयु में, स्कूली शिक्षा के दौरान ही उन्होंने जीवन के असली उद्देश्य पर गहरे प्रश्न उठाए, और एक रात घर त्यागकर सत्य की खोज में निकल पड़े। भटकते हुए वे वृंदावन पहुंचे, यमुना जी में स्नान किया और बांके बिहारी जी का दर्शन किया — कहा जाता है कि उस दर्शन के समय उनकी आंखों से अश्रुधारा बह चली और राधा-कृष्ण के प्रति गहरा प्रेम-भाव जाग उठा, जिसने उनके पूरे जीवन की दिशा बदल दी। तभी से वे वृंदावन में ही रहकर कठोर साधना, सेवा और भक्ति में लीन हैं।", rahasya:"आज वे श्रीमद्भागवत कथा, राम कथा और सत्संग के माध्यम से लाखों-करोड़ों लोगों तक भक्ति का संदेश पहुंचा रहे हैं। स्वास्थ्य संबंधी गंभीर चुनौतियों (जैसा बताया जाता है, गुर्दों से जुड़ी समस्या) के बावजूद उन्होंने सेवा और भक्ति का मार्ग नहीं छोड़ा। उनकी शिक्षाओं का केंद्रीय भाव यह है कि सच्ची शांति बाहरी वस्तुओं में नहीं, बल्कि भीतर की इच्छाओं के द्वंद्व को शांत करने में है; वे युवाओं को अनुशासन और संयम अपनाने, तथा हर परिस्थिति में ईश्वर पर अटूट भरोसा रखने की सरल, भावनात्मक भाषा में सीख देते हैं — यही कारण है कि उनके प्रवचन आज सोशल मीडिया के माध्यम से करोड़ों लोगों तक पहुंच चुके हैं और लोगों के जीवन में सकारात्मक बदलाव ला रहे हैं। उनका जीवन दिखाता है कि सच्ची जिज्ञासा उम्र नहीं देखती — 13 वर्ष की आयु में उठाया गया एक ईमानदार प्रश्न भी पूरे जीवन को भक्ति में समर्पित कर सकता है।" },
+  { title:"संत परमानंद दास जी", meta:"अष्टछाप के कवि — जन्मांध कृष्ण भक्त", body:"संत परमानंद दास जी वल्लभाचार्य जी द्वारा स्थापित पुष्टिमार्ग की प्रसिद्ध 'अष्टछाप' (आठ महान कवि-भक्तों का समूह) में से एक थे। कहा जाता है कि वे जन्म से ही नेत्रहीन थे, परंतु उनकी भीतर की दृष्टि — भगवान श्रीकृष्ण के प्रति भक्ति — इतनी प्रखर थी कि उन्होंने कृष्ण की बाल-लीलाओं और रासलीला पर अत्यंत मधुर पद रचे। वल्लभाचार्य जी से दीक्षा लेने के बाद उनका सम्पूर्ण जीवन कृष्ण भक्ति और पद रचना को समर्पित हो गया। उनके पद आज भी हवेली संगीत (पुष्टिमार्गीय मंदिरों में गाया जाने वाला भक्ति संगीत) की परंपरा में गाए जाते हैं।", rahasya:"उनके जीवन का सबसे गहरा संदेश यह है कि बाहरी आंखों का न होना भक्ति में कभी बाधा नहीं बना — बल्कि शारीरिक दृष्टि के अभाव ने उनकी भीतर की भक्ति-दृष्टि को और अधिक प्रखर कर दिया। यह सिखाता है कि ईश्वर को देखने के लिए आंखों की नहीं, हृदय की शुद्धता और समर्पण की आवश्यकता होती है।" },
+  { title:"मीरा बाई", meta:"राजपूत राजकुमारी जो कृष्ण की दीवानी हो गईं", body:"मीरा बाई का जन्म राजस्थान के एक राजपूत राजघराने में हुआ था। बचपन में ही उन्हें एक साधु से भगवान कृष्ण की मूर्ति मिली, जिससे वे इतनी प्रभावित हुईं कि उन्होंने कृष्ण को ही अपना पति मान लिया। विवाह मेवाड़ के राजकुमार से हुआ, परंतु मीरा का मन सदा कृष्ण भक्ति में ही रमा रहा। ससुराल में उन्हें भारी विरोध, ताने और यहां तक कि विष देकर मारने के प्रयास तक सहने पड़े, परंतु उन्होंने भक्ति मार्ग कभी नहीं छोड़ा। वे राजमहल त्यागकर साधु-संतों के बीच भजन गाते हुए वृंदावन और द्वारिका तक गईं। कहा जाता है कि अंततः वे द्वारिकाधीश की मूर्ति में समा गईं।", rahasya:"मीरा का जीवन सिखाता है कि सच्ची भक्ति सामाजिक मर्यादाओं, राजसी वैभव और यहां तक कि जान के खतरे से भी ऊपर होती है — जब हृदय पूर्णतः समर्पित हो जाए, तो कोई भी बाहरी बाधा उस समर्पण को तोड़ नहीं सकती।" },
+  { title:"संत सूरदास", meta:"अष्टछाप के प्रमुख कवि — 'सूरसागर' के रचयिता", body:"सूरदास जी भी जन्मांध माने जाते हैं और अष्टछाप के सबसे प्रमुख कवियों में गिने जाते हैं। वे भी वल्लभाचार्य जी के शिष्य बने। उनकी सबसे बड़ी रचना 'सूरसागर' है, जिसमें उन्होंने भगवान कृष्ण की बाल-लीलाओं — माखनचोरी, यशोदा से हठ, गोपियों संग रासलीला — का इतना जीवंत वर्णन किया कि लोग कहते थे मानो उन्होंने अपनी आंखों से यह सब देखा हो। उनके पद वात्सल्य रस (मातृ-पितृ स्नेह) के सबसे उत्कृष्ट उदाहरण माने जाते हैं।", rahasya:"सूरदास का जीवन यह गहरा प्रश्न उठाता है कि 'देखना' केवल आंखों से नहीं होता — भीतर की भावना, कल्पना और भक्ति-भाव इतने प्रगाढ़ हो सकते हैं कि वे बाहरी आंखों से भी अधिक स्पष्ट चित्र मन में उकेर सकते हैं।" },
+  { title:"गोस्वामी तुलसीदास", meta:"'रामचरितमानस' के रचयिता — मोह से भक्ति तक की यात्रा", body:"तुलसीदास जी का प्रारंभिक जीवन अपनी पत्नी रत्नावली के प्रति अत्यधिक मोह से घिरा था। एक बार पत्नी ने जब उन्हें कठोर शब्दों में कहा कि जितना प्रेम वे उससे करते हैं, उतना प्रेम अगर भगवान राम से करें तो भवसागर पार हो जाएं — यह वाक्य तुलसीदास के जीवन का मोड़ बन गया। उन्होंने सांसारिक मोह त्यागकर राम भक्ति में स्वयं को समर्पित कर दिया, और अवधी भाषा में 'रामचरितमानस' जैसा महाकाव्य रचा, जो आज करोड़ों घरों में पढ़ा जाता है।", rahasya:"तुलसीदास का जीवन दिखाता है कि कभी-कभी जीवन का सबसे बड़ा मोड़ किसी कठोर सत्य को सुनने से आता है — जो चोट पहली नज़र में अपमान लगती है, वही आगे चलकर सबसे बड़े परिवर्तन का कारण बन सकती है।" },
+  { title:"संत कबीर दास", meta:"निर्गुण भक्ति के प्रवर्तक — हिंदू-मुस्लिम एकता के संदेशवाहक", body:"कबीर दास जी के जन्म को लेकर कई किंवदंतियां हैं, परंतु उनका पालन-पोषण एक मुस्लिम जुलाहा परिवार में हुआ। वे संत रामानंद के शिष्य बने और निर्गुण भक्ति (बिना किसी मूर्ति या रूप के, निराकार ईश्वर की भक्ति) के सबसे बड़े प्रवर्तकों में गिने गए। उन्होंने अपने दोहों में हिंदू-मुस्लिम दोनों धर्मों में व्याप्त पाखंड, कर्मकांड और जातिभेद पर कड़ा प्रहार किया, और यह संदेश दिया कि सच्चा ईश्वर मंदिर-मस्जिद की दीवारों में नहीं, बल्कि शुद्ध हृदय में बसता है।", rahasya:"कबीर का सबसे गहरा संदेश यह है कि धर्म के नाम पर बनाई गई दीवारें मनुष्य की, न कि ईश्वर की रचना हैं — जो व्यक्ति बाहरी कर्मकांड से ऊपर उठकर भीतर की शुद्धता खोजता है, वही सच्चे अर्थ में धार्मिक है।" },
+  { title:"संत रविदास (रैदास)", meta:"जाति से ऊपर उठी भक्ति के प्रतीक", body:"संत रविदास जी का जन्म तत्कालीन समाज में निम्न मानी जाने वाली चर्मकार (जूते बनाने वाली) जाति में हुआ था। समाज द्वारा भेदभाव सहने के बावजूद उन्होंने अपनी भक्ति और ज्ञान से इतनी ऊंचाई प्राप्त की कि मीरा बाई सहित अनेक लोग उन्हें अपना गुरु मानते थे। उन्होंने अपने पदों में समानता, प्रेम और निष्काम भक्ति का संदेश दिया, और यह सिद्ध किया कि जन्म से मिली जाति कभी किसी की आध्यात्मिक ऊंचाई को सीमित नहीं कर सकती।", rahasya:"रविदास जी का जीवन यह गहरा सत्य उजागर करता है कि ईश्वर के दरबार में जन्म, जाति या पेशा नहीं, केवल हृदय की शुद्धता और भक्ति की गहराई मायने रखती है — समाज की बनाई सीढ़ियां आध्यात्मिक ऊंचाई की सच्ची माप नहीं हैं।" },
+  { title:"श्री चैतन्य महाप्रभु", meta:"संकीर्तन आंदोलन के जनक — गौड़ीय वैष्णव परंपरा के संस्थापक", body:"बंगाल में जन्मे चैतन्य महाप्रभु प्रारंभ में एक विद्वान पंडित थे, परंतु एक गहन आध्यात्मिक अनुभव के बाद उन्होंने अपना जीवन पूर्णतः कृष्ण भक्ति को समर्पित कर दिया। उन्होंने 'संकीर्तन' — सामूहिक रूप से नाचते-गाते हुए भगवान का नाम-कीर्तन करने की पद्धति — को जन-जन तक पहुंचाया, जिससे भक्ति मार्ग किसी विशेष वर्ग तक सीमित न रहकर आम जनता के लिए सुलभ हो गया। उन्हें राधा और कृष्ण दोनों का संयुक्त अवतार भी माना जाता है।", rahasya:"चैतन्य महाप्रभु का सबसे बड़ा योगदान यह था कि उन्होंने भक्ति को कठिन ग्रंथों और संस्कृत श्लोकों की सीमा से निकालकर सामूहिक नृत्य-गान का सरल, आनंदमय रूप दिया — यह दिखाता है कि सबसे गहरा आध्यात्मिक अनुभव कभी-कभी सबसे सरल, सामूहिक आनंद में छुपा होता है।" },
+  { title:"संत तुकाराम महाराज", meta:"महाराष्ट्र के वारकरी संत — विठ्ठल भक्त", body:"संत तुकाराम महाराष्ट्र की वारकरी परंपरा के महानतम संतों में गिने जाते हैं, जो भगवान विठ्ठल (विष्णु का एक रूप, पंढरपुर में विराजमान) के परम भक्त थे। जीवन में भीषण गरीबी, पारिवारिक क्षति और समाज के कट्टरपंथी वर्ग के कड़े विरोध का सामना करने के बावजूद उन्होंने भक्ति मार्ग नहीं छोड़ा, और मराठी भाषा में हजारों 'अभंग' (भक्ति पद) रचे, जो आज भी महाराष्ट्र के घर-घर में गाए जाते हैं।", rahasya:"तुकाराम का जीवन सिखाता है कि सांसारिक कष्ट — चाहे गरीबी हो या सामाजिक विरोध — किसी की आध्यात्मिक यात्रा को रोक नहीं सकते, बल्कि कई बार वही कष्ट भक्ति को और अधिक गहरा और प्रामाणिक बना देते हैं।" },
+  { title:"नरसी मेहता", meta:"'वैष्णव जन तो' के रचयिता — गुजरात के कृष्ण भक्त", body:"नरसी मेहता गुजरात के प्रसिद्ध कृष्ण भक्त कवि थे, जिनका प्रारंभिक जीवन घोर आर्थिक तंगी में बीता। किंवदंती है कि एक बार जब वे भगवान शिव की आराधना कर रहे थे, तब उन्हें कृष्ण की रासलीला का दिव्य दर्शन हुआ, जिसके बाद उनका जीवन पूर्णतः भक्ति को समर्पित हो गया। उनकी सबसे प्रसिद्ध रचना 'वैष्णव जन तो तेणे कहिए' है, जो एक सच्चे वैष्णव (ईश्वर भक्त) के गुणों का वर्णन करती है — जो दूसरों के दुख को अपना दुख समझे। यह भजन महात्मा गांधी का अत्यंत प्रिय भजन भी रहा।", rahasya:"नरसी मेहता का जीवन और उनकी रचना दोनों यह गहरा संदेश देते हैं कि सच्ची भक्ति केवल पूजा-पाठ में नहीं, बल्कि दूसरों के दुख को महसूस करने और करुणा से भरे व्यवहार में प्रकट होती है।" },
+  { title:"आण्डाल", meta:"दक्षिण भारत की भक्त कवयित्री — बारह आळवारों में एकमात्र स्त्री", body:"आण्डाल तमिलनाडु की एक भक्त कवयित्री थीं, जिन्हें वैष्णव परंपरा के बारह प्रमुख संत-कवियों 'आळवार' में एकमात्र स्त्री होने का गौरव प्राप्त है। बचपन से ही वे स्वयं को भगवान रंगनाथ (विष्णु का एक रूप) की वधू मानती थीं और उन्हीं के प्रति अपनी भक्ति और प्रेम भावना में डूबी रहती थीं। उन्होंने तमिल भाषा में 'तिरुप्पावई' जैसी अत्यंत सुंदर भक्ति रचनाएं लिखीं। कथा है कि अंततः वे श्रीरंगम मंदिर में भगवान रंगनाथ की मूर्ति में विलीन हो गईं।", rahasya:"आण्डाल का जीवन यह दिखाता है कि भक्ति में प्रेम और समर्पण का भाव इतना गहरा हो सकता है कि भक्त और भगवान के बीच की दूरी पूर्णतः मिट जाए — यह भक्ति की उस चरम अवस्था का उदाहरण है जहां द्वैत (भक्त-भगवान का भेद) स्वयं समाप्त हो जाता है।" }
+];
+
+const DEFAULT_GALLERY = [
+  { id: "default_0", src: "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMjAwIj4KPHJlY3Qgd2lkdGg9IjIwMCIgaGVpZ2h0PSIyMDAiIGZpbGw9IiMwYjA3MTQiLz4KPGNpcmNsZSBjeD0iMTAwIiBjeT0iMTAwIiByPSI5MCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjYzk5NzNmIiBzdHJva2Utd2lkdGg9IjIiIG9wYWNpdHk9IjAuNCIvPgo8dGV4dCB4PSIxMDAiIHk9IjEzNSIgZm9udC1zaXplPSIxMTAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IiNlM2M1ODkiIGZvbnQtZmFtaWx5PSJzZXJpZiI+4KWQPC90ZXh0Pgo8L3N2Zz4=", caption: "ॐ — शाश्वत ध्वनि", isDefault: true },
+  { id: "default_1", src: "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMjAwIj4KPHJlY3Qgd2lkdGg9IjIwMCIgaGVpZ2h0PSIyMDAiIGZpbGw9IiMxNDBmMjIiLz4KPGcgZmlsbD0iI2M5OTczZiIgb3BhY2l0eT0iMC44NSI+CjxlbGxpcHNlIGN4PSIxMDAiIGN5PSIxNDAiIHJ4PSIxOCIgcnk9IjQ1IiB0cmFuc2Zvcm09InJvdGF0ZSgwIDEwMCAxNDApIi8+CjxlbGxpcHNlIGN4PSIxMDAiIGN5PSIxNDAiIHJ4PSIxOCIgcnk9IjQ1IiB0cmFuc2Zvcm09InJvdGF0ZSg0NSAxMDAgMTQwKSIvPgo8ZWxsaXBzZSBjeD0iMTAwIiBjeT0iMTQwIiByeD0iMTgiIHJ5PSI0NSIgdHJhbnNmb3JtPSJyb3RhdGUoOTAgMTAwIDE0MCkiLz4KPGVsbGlwc2UgY3g9IjEwMCIgY3k9IjE0MCIgcng9IjE4IiByeT0iNDUiIHRyYW5zZm9ybT0icm90YXRlKDEzNSAxMDAgMTQwKSIvPgo8ZWxsaXBzZSBjeD0iMTAwIiBjeT0iMTQwIiByeD0iMTgiIHJ5PSI0NSIgdHJhbnNmb3JtPSJyb3RhdGUoMTgwIDEwMCAxNDApIi8+CjxlbGxpcHNlIGN4PSIxMDAiIGN5PSIxNDAiIHJ4PSIxOCIgcnk9IjQ1IiB0cmFuc2Zvcm09InJvdGF0ZSgyMjUgMTAwIDE0MCkiLz4KPGVsbGlwc2UgY3g9IjEwMCIgY3k9IjE0MCIgcng9IjE4IiByeT0iNDUiIHRyYW5zZm9ybT0icm90YXRlKDI3MCAxMDAgMTQwKSIvPgo8ZWxsaXBzZSBjeD0iMTAwIiBjeT0iMTQwIiByeD0iMTgiIHJ5PSI0NSIgdHJhbnNmb3JtPSJyb3RhdGUoMzE1IDEwMCAxNDApIi8+CjwvZz4KPGNpcmNsZSBjeD0iMTAwIiBjeT0iMTQwIiByPSIxNCIgZmlsbD0iI2UzYzU4OSIvPgo8L3N2Zz4=", caption: "कमल — पवित्रता और सृजन का प्रतीक", isDefault: true },
+  { id: "default_2", src: "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMjAwIj4KPHJlY3Qgd2lkdGg9IjIwMCIgaGVpZ2h0PSIyMDAiIGZpbGw9IiMwNTAzMGEiLz4KPGVsbGlwc2UgY3g9IjEwMCIgY3k9IjE1MCIgcng9IjU1IiByeT0iMTgiIGZpbGw9IiM1YzFhM2QiIHN0cm9rZT0iI2M5OTczZiIgc3Ryb2tlLXdpZHRoPSIyIi8+CjxwYXRoIGQ9Ik0xMDAgNjAgQyAxMTUgOTAgMTIwIDExMCAxMDAgMTMwIEMgODAgMTEwIDg1IDkwIDEwMCA2MCBaIiBmaWxsPSIjZTNjNTg5Ii8+CjxwYXRoIGQ9Ik0xMDAgODAgQyAxMDggOTggMTEwIDExMCAxMDAgMTIyIEMgOTAgMTEwIDkyIDk4IDEwMCA4MCBaIiBmaWxsPSIjZmZlZGMyIi8+Cjwvc3ZnPg==", caption: "दीपक — अंधकार पर प्रकाश की विजय", isDefault: true },
+  { id: "default_3", src: "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMjAwIj4KPHJlY3Qgd2lkdGg9IjIwMCIgaGVpZ2h0PSIyMDAiIGZpbGw9IiMwYjA3MTQiLz4KPGcgc3Ryb2tlPSIjYzk5NzNmIiBmaWxsPSJub25lIiBzdHJva2Utd2lkdGg9IjEuNSIgb3BhY2l0eT0iMC44Ij4KPGNpcmNsZSBjeD0iMTAwIiBjeT0iMTAwIiByPSIyMCIvPgo8Y2lyY2xlIGN4PSIxMDAiIGN5PSIxMDAiIHI9IjQwIi8+CjxjaXJjbGUgY3g9IjEwMCIgY3k9IjEwMCIgcj0iNjAiLz4KPGNpcmNsZSBjeD0iMTAwIiBjeT0iMTAwIiByPSI4MCIvPgo8L2c+CjxnIGZpbGw9IiNlM2M1ODkiPgo8Y2lyY2xlIGN4PSIxMDAiIGN5PSIyMCIgcj0iNCIvPjxjaXJjbGUgY3g9IjEwMCIgY3k9IjE4MCIgcj0iNCIvPgo8Y2lyY2xlIGN4PSIyMCIgY3k9IjEwMCIgcj0iNCIvPjxjaXJjbGUgY3g9IjE4MCIgY3k9IjEwMCIgcj0iNCIvPgo8Y2lyY2xlIGN4PSI0MyIgY3k9IjQzIiByPSI0Ii8+PGNpcmNsZSBjeD0iMTU3IiBjeT0iNDMiIHI9IjQiLz4KPGNpcmNsZSBjeD0iNDMiIGN5PSIxNTciIHI9IjQiLz48Y2lyY2xlIGN4PSIxNTciIGN5PSIxNTciIHI9IjQiLz4KPC9nPgo8L3N2Zz4=", caption: "मंडल — ब्रह्मांडीय संतुलन का प्रतीक", isDefault: true },
+];
+
+const ALL_TOPICS = [].concat(puranas, granthList, devtaList, bhaktCharitList, rahasyaTopics, yugTopics, manavTopics, gyanTopics, guptTopics, jeevanTopics, tantraTopics);
+const FAV_KEY = "sanatanRahasyaFavorites";
+
+function getFavorites(){
+  try{ return JSON.parse(localStorage.getItem(FAV_KEY)) || []; }
+  catch(e){ return []; }
+}
+function toggleFavorite(title){
+  let favs = getFavorites();
+  favs = favs.includes(title) ? favs.filter(t => t !== title) : favs.concat([title]);
+  try{ localStorage.setItem(FAV_KEY, JSON.stringify(favs)); }catch(e){}
+}
+function renderFavorites(){
+  const favs = getFavorites();
+  const favItems = ALL_TOPICS.filter(item => favs.includes(item.title));
+  const grid = document.getElementById("favGrid");
+  if(!grid) return;
+  if(favItems.length === 0){
+    grid.innerHTML = '<div class="empty-fav">अभी कोई पसंदीदा नहीं है। किसी भी कार्ड के ☆ बटन को दबाकर उसे यहाँ जोड़ो।</div>';
+  } else {
+    renderCards(favItems, "favGrid");
+  }
+}
+
+let revealObserver = null;
+if("IntersectionObserver" in window){
+  revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        entry.target.classList.add("revealed");
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.08 });
+}
+
+let audioCtx = null;
+let soundOn = false;
+function initAudio(){
+  if(!audioCtx){
+    try{ audioCtx = new (window.AudioContext || window.webkitAudioContext)(); }catch(e){ audioCtx = null; }
+  }
+}
+function playTone(freq, duration, type, vol){
+  if(!soundOn || !audioCtx) return;
+  const osc = audioCtx.createOscillator();
+  const gain = audioCtx.createGain();
+  osc.type = type || "sine";
+  osc.frequency.value = freq;
+  gain.gain.setValueAtTime(vol || 0.12, audioCtx.currentTime);
+  gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + duration);
+  osc.connect(gain);
+  gain.connect(audioCtx.destination);
+  osc.start();
+  osc.stop(audioCtx.currentTime + duration);
+}
+function playChime(){ playTone(660, 0.6, "sine", 0.10); setTimeout(() => playTone(880, 0.5, "sine", 0.07), 90); }
+function playClick(){ playTone(1200, 0.09, "triangle", 0.05); }
+function playOm(){
+  if(!soundOn || !audioCtx) return;
+  [136.1, 272.2, 408.3].forEach((f, i) => playTone(f, 2.4, "sine", 0.05 - i * 0.012));
+}
+
+document.getElementById("soundToggleBtn").addEventListener("click", (e) => {
+  initAudio();
+  if(audioCtx && audioCtx.state === "suspended"){ audioCtx.resume(); }
+  soundOn = !soundOn;
+  e.target.textContent = soundOn ? "🔊 ध्वनि चालू है" : "🔇 ध्वनि चालू करें";
+  if(soundOn) playOm();
+});
+
+/* ===== GALLERY ===== */
+const GALLERY_KEY = "sanatanGalleryPhotos";
+const HEADER_PHOTO_KEY = "sanatanHeaderPhoto";
+
+function getGallery(){
+  try{
+    const stored = JSON.parse(localStorage.getItem(GALLERY_KEY));
+    if(stored) return stored;
+  }catch(e){}
+  return DEFAULT_GALLERY.slice();
+}
+function saveGallery(list){
+  try{ localStorage.setItem(GALLERY_KEY, JSON.stringify(list)); }catch(e){
+    alert("फोटो सेव करने में दिक्कत आई — शायद ब्राउज़र स्टोरेज भर गया है, कोई पुरानी फोटो हटाकर फिर कोशिश करें।");
+  }
+}
+
+function resizeImage(file, callback){
+  const reader = new FileReader();
+  reader.onload = (ev) => {
+    const original = ev.target.result;
+    const img = new Image();
+    img.onload = () => {
+      try{
+        const maxDim = 900;
+        let w = img.width, h = img.height;
+        if(w > maxDim || h > maxDim){
+          if(w > h){ h = Math.round(h * maxDim / w); w = maxDim; }
+          else { w = Math.round(w * maxDim / h); h = maxDim; }
+        }
+        const canvas = document.createElement("canvas");
+        canvas.width = w; canvas.height = h;
+        canvas.getContext("2d").drawImage(img, 0, 0, w, h);
+        const resized = canvas.toDataURL("image/jpeg", 0.75);
+        callback(resized);
+      }catch(err){
+        // Some browsers block canvas export for local file:// pages (tainted canvas).
+        // Fall back to the original, un-resized image so the upload still works.
+        callback(original);
+      }
+    };
+    img.onerror = () => { callback(original); };
+    img.src = original;
+  };
+  reader.onerror = () => { callback(null); };
+  reader.readAsDataURL(file);
+}
+
+function renderGallery(){
+  const gallery = getGallery();
+  const grid = document.getElementById("galleryGrid");
+  if(!grid) return;
+  grid.innerHTML = "";
+  if(gallery.length === 0){
+    grid.innerHTML = '<div class="empty-gallery">अभी कोई फोटो नहीं है। ऊपर "फोटो जोड़ें" दबाकर अपनी तस्वीरें डालो।</div>';
+    return;
+  }
+  gallery.forEach((photo, idx) => {
+    const card = document.createElement("div");
+    card.className = "photo-card";
+    const mediaHtml = photo.isVideo
+      ? `<video src="${photo.src}" controls></video>`
+      : `<img src="${photo.src}" alt="${photo.caption || ''}">`;
+    const headerBtn = photo.isVideo ? "" : `<button data-act="header" title="मुखपृष्ठ पर लगाएं">🖼️</button>`;
+    card.innerHTML = `
+      ${mediaHtml}
+      <div class="photo-card-body">
+        <input type="text" class="photo-caption-input" value="${(photo.caption || '').replace(/"/g, '&quot;')}" placeholder="कैप्शन लिखो...">
+        <div class="photo-actions">
+          <button data-act="up" title="ऊपर ले जाएं">↑</button>
+          <button data-act="down" title="नीचे ले जाएं">↓</button>
+          ${headerBtn}
+          <button data-act="delete" title="हटाएं">🗑️</button>
+        </div>
+      </div>
+    `;
+    card.querySelector(".photo-caption-input").addEventListener("change", (e) => {
+      const g = getGallery();
+      g[idx].caption = e.target.value;
+      saveGallery(g);
+    });
+    card.querySelector('[data-act="up"]').addEventListener("click", () => {
+      const g = getGallery();
+      if(idx > 0){ [g[idx-1], g[idx]] = [g[idx], g[idx-1]]; saveGallery(g); renderGallery(); playClick(); }
+    });
+    card.querySelector('[data-act="down"]').addEventListener("click", () => {
+      const g = getGallery();
+      if(idx < g.length - 1){ [g[idx+1], g[idx]] = [g[idx], g[idx+1]]; saveGallery(g); renderGallery(); playClick(); }
+    });
+    const headerBtnEl = card.querySelector('[data-act="header"]');
+    if(headerBtnEl){
+      headerBtnEl.addEventListener("click", () => {
+        try{ localStorage.setItem(HEADER_PHOTO_KEY, photo.src); }catch(e){}
+        applyHeaderPhoto();
+        playChime();
+      });
+    }
+    card.querySelector('[data-act="delete"]').addEventListener("click", () => {
+      const g = getGallery();
+      g.splice(idx, 1);
+      saveGallery(g);
+      renderGallery();
+      playClick();
+    });
+    if(revealObserver){ revealObserver.observe(card); } else { card.classList.add("revealed"); }
+    grid.appendChild(card);
+  });
+}
+
+function applyHeaderPhoto(){
+  let saved = null;
+  try{ saved = localStorage.getItem(HEADER_PHOTO_KEY); }catch(e){}
+  const frame = document.getElementById("headerPhotoFrame");
+  const img = document.getElementById("headerPhotoImg");
+  if(saved && frame && img){
+    img.src = saved;
+    frame.style.display = "block";
+  }
+}
+applyHeaderPhoto();
+renderGallery();
+
+/* ===== JAPA COUNTER ===== */
+const JAPA_COUNT_KEY = "sanatanJapaCount";
+const JAPA_ROUNDS_KEY = "sanatanJapaRounds";
+function getJapaState(){
+  let count = 0, rounds = 0;
+  try{
+    count = parseInt(localStorage.getItem(JAPA_COUNT_KEY), 10) || 0;
+    rounds = parseInt(localStorage.getItem(JAPA_ROUNDS_KEY), 10) || 0;
+  }catch(e){}
+  return { count, rounds };
+}
+function saveJapaState(count, rounds){
+  try{
+    localStorage.setItem(JAPA_COUNT_KEY, String(count));
+    localStorage.setItem(JAPA_ROUNDS_KEY, String(rounds));
+  }catch(e){}
+}
+function renderJapa(){
+  const { count, rounds } = getJapaState();
+  document.getElementById("japaCount").textContent = count;
+  document.getElementById("japaRoundsLabel").textContent = rounds + " माला पूरी";
+}
+document.getElementById("japaTapBtn").addEventListener("click", () => {
+  let { count, rounds } = getJapaState();
+  count++;
+  if(count >= 108){ count = 0; rounds++; playChime(); if(navigator.vibrate) navigator.vibrate(80); }
+  else { playClick(); }
+  saveJapaState(count, rounds);
+  renderJapa();
+});
+document.getElementById("japaResetBtn").addEventListener("click", () => {
+  if(confirm("क्या तुम गिनती (0 से) फिर शुरू करना चाहते हो? माला की कुल संख्या बनी रहेगी।")){
+    saveJapaState(0, getJapaState().rounds);
+    renderJapa();
+    playClick();
+  }
+});
+renderJapa();
+
+document.getElementById("addPhotoBtn").addEventListener("click", () => {
+  requireGalleryUnlock(() => document.getElementById("photoFileInput").click());
+});
+document.getElementById("addGalleryVideoBtn").addEventListener("click", () => {
+  requireGalleryUnlock(() => document.getElementById("galleryVideoInput").click());
+});
+document.getElementById("galleryVideoInput").addEventListener("change", (e) => {
+  const file = e.target.files && e.target.files[0];
+  if(!file) return;
+  const maxMB = 8;
+  if(file.size > maxMB * 1024 * 1024){
+    alert("यह वीडियो थोड़ा बड़ा है (" + maxMB + "MB से ज़्यादा)। कृपया कोई छोटा वीडियो चुनें।");
+    e.target.value = "";
+    return;
+  }
+  const reader = new FileReader();
+  reader.onload = (ev) => {
+    const g = getGallery();
+    g.push({ id: "video_" + Date.now(), src: ev.target.result, caption: "", isVideo: true });
+    saveGallery(g);
+    renderGallery();
+    playChime();
+  };
+  reader.onerror = () => alert("वीडियो पढ़ने में दिक्कत आई, कृपया दोबारा कोशिश करें।");
+  reader.readAsDataURL(file);
+  e.target.value = "";
+});
+
+/* ===== GALLERY PIN GATE (view is open to all, adding needs PIN) ===== */
+const GALLERY_PIN_KEY = "sanatanGalleryPinHash";
+const GALLERY_SESSION_KEY = "sanatanGalleryUnlocked";
+
+function isGalleryUnlockedThisSession(){
+  try{ return sessionStorage.getItem(GALLERY_SESSION_KEY) === "1"; }catch(e){ return false; }
+}
+function requireGalleryUnlock(onSuccess){
+  if(isGalleryUnlockedThisSession()){ onSuccess(); return; }
+  const overlay = document.getElementById("galleryPinOverlay");
+  const box = document.getElementById("galleryPinBox");
+  const hasPin = (() => { try{ return localStorage.getItem(GALLERY_PIN_KEY); }catch(e){ return null; } })();
+
+  if(!hasPin){
+    box.innerHTML = `
+      <div class="lock-icon">🔒</div>
+      <h3>गैलरी में जोड़ने के लिए PIN बनाओ</h3>
+      <p>यह PIN सिर्फ तुम्हें पता होगा — इसके बिना कोई और फोटो/वीडियो नहीं जोड़ पाएगा, देख सब सकते हैं।</p>
+      <input type="password" inputmode="numeric" maxlength="4" class="pin-input" id="gPinSetup1" placeholder="⚫⚫⚫⚫">
+      <input type="password" inputmode="numeric" maxlength="4" class="pin-input" id="gPinSetup2" placeholder="फिर से लिखो">
+      <div class="lock-error" id="gPinSetupErr"></div>
+      <button class="rahasya-btn" id="gPinSetupBtn">PIN सेट करो</button>
+    `;
+    document.getElementById("gPinSetupBtn").addEventListener("click", () => {
+      const p1 = document.getElementById("gPinSetup1").value.trim();
+      const p2 = document.getElementById("gPinSetup2").value.trim();
+      const err = document.getElementById("gPinSetupErr");
+      if(!/^\d{4}$/.test(p1)){ err.textContent = "PIN में सिर्फ 4 अंक होने चाहिए।"; return; }
+      if(p1 !== p2){ err.textContent = "दोनों PIN मेल नहीं खा रहे।"; return; }
+      try{ localStorage.setItem(GALLERY_PIN_KEY, simpleHash(p1)); }catch(e){}
+      try{ sessionStorage.setItem(GALLERY_SESSION_KEY, "1"); }catch(e){}
+      overlay.classList.remove("open");
+      playChime();
+      onSuccess();
+    });
+  } else {
+    box.innerHTML = `
+      <div class="lock-icon">🔒</div>
+      <h3>PIN डालो</h3>
+      <p>फोटो/वीडियो जोड़ने के लिए अपना PIN डालो।</p>
+      <input type="password" inputmode="numeric" maxlength="4" class="pin-input" id="gPinUnlock" placeholder="⚫⚫⚫⚫">
+      <div class="lock-error" id="gPinUnlockErr"></div>
+      <button class="rahasya-btn" id="gPinUnlockBtn">खोलो</button>
+    `;
+    const tryUnlock = () => {
+      const p = document.getElementById("gPinUnlock").value.trim();
+      const err = document.getElementById("gPinUnlockErr");
+      if(simpleHash(p) === (() => { try{ return localStorage.getItem(GALLERY_PIN_KEY); }catch(e){ return null; } })()){
+        try{ sessionStorage.setItem(GALLERY_SESSION_KEY, "1"); }catch(e){}
+        overlay.classList.remove("open");
+        playChime();
+        onSuccess();
+      } else {
+        err.textContent = "गलत PIN, फिर कोशिश करो।";
+        playClick();
+      }
+    };
+    document.getElementById("gPinUnlockBtn").addEventListener("click", tryUnlock);
+    document.getElementById("gPinUnlock").addEventListener("keydown", (e) => { if(e.key === "Enter") tryUnlock(); });
+  }
+  overlay.classList.add("open");
+}
+document.getElementById("galleryPinOverlay").addEventListener("click", (e) => {
+  if(e.target.id === "galleryPinOverlay") overlay_close_helper();
+});
+function overlay_close_helper(){ document.getElementById("galleryPinOverlay").classList.remove("open"); }
+
+/* ===== PERSONAL PRIVATE SECTION ===== */
+const PERSONAL_PIN_KEY = "sanatanPersonalPinHash";
+const PERSONAL_ENTRIES_KEY = "sanatanPersonalEntries";
+const PERSONAL_SESSION_KEY = "sanatanPersonalUnlocked";
+
+function simpleHash(str){
+  let h = 0;
+  for(let i = 0; i < str.length; i++){ h = (h * 31 + str.charCodeAt(i)) >>> 0; }
+  return h.toString(36);
+}
+function getPersonalPinHash(){
+  try{ return localStorage.getItem(PERSONAL_PIN_KEY); }catch(e){ return null; }
+}
+function getPersonalEntries(){
+  try{ return JSON.parse(localStorage.getItem(PERSONAL_ENTRIES_KEY)) || []; }catch(e){ return []; }
+}
+function savePersonalEntries(list){
+  try{ localStorage.setItem(PERSONAL_ENTRIES_KEY, JSON.stringify(list)); }catch(e){
+    alert("सेव करने में दिक्कत आई — ब्राउज़र स्टोरेज भर गया लगता है।");
+  }
+}
+function isPersonalUnlockedThisSession(){
+  try{ return sessionStorage.getItem(PERSONAL_SESSION_KEY) === "1"; }catch(e){ return false; }
+}
+
+function renderPersonalLockBox(){
+  const box = document.getElementById("personalLockedBox");
+  const hasPin = getPersonalPinHash();
+  if(!hasPin){
+    box.innerHTML = `
+      <div class="lock-box">
+        <div class="lock-icon">🔒</div>
+        <h3>अपना 4 अंकों का PIN बनाओ</h3>
+        <p>यह PIN सिर्फ तुम्हें पता होगा — इसके बिना कोई भी यह हिस्सा नहीं खोल पाएगा।</p>
+        <input type="password" inputmode="numeric" maxlength="4" class="pin-input" id="pinSetupInput" placeholder="⚫⚫⚫⚫">
+        <input type="password" inputmode="numeric" maxlength="4" class="pin-input" id="pinConfirmInput" placeholder="फिर से लिखो">
+        <div class="lock-error" id="pinSetupError"></div>
+        <button class="rahasya-btn" id="pinSetupBtn">PIN सेट करो</button>
+      </div>
+    `;
+    document.getElementById("pinSetupBtn").addEventListener("click", () => {
+      const p1 = document.getElementById("pinSetupInput").value.trim();
+      const p2 = document.getElementById("pinConfirmInput").value.trim();
+      const err = document.getElementById("pinSetupError");
+      if(!/^\d{4}$/.test(p1)){ err.textContent = "PIN में सिर्फ 4 अंक होने चाहिए।"; return; }
+      if(p1 !== p2){ err.textContent = "दोनों PIN मेल नहीं खा रहे।"; return; }
+      try{ localStorage.setItem(PERSONAL_PIN_KEY, simpleHash(p1)); }catch(e){}
+      try{ sessionStorage.setItem(PERSONAL_SESSION_KEY, "1"); }catch(e){}
+      unlockPersonalArea();
+      playChime();
+    });
+  } else {
+    box.innerHTML = `
+      <div class="lock-box">
+        <div class="lock-icon">🔒</div>
+        <h3>अपना PIN डालो</h3>
+        <p>यह हिस्सा सिर्फ तुम्हारे लिए है।</p>
+        <input type="password" inputmode="numeric" maxlength="4" class="pin-input" id="pinUnlockInput" placeholder="⚫⚫⚫⚫">
+        <div class="lock-error" id="pinUnlockError"></div>
+        <button class="rahasya-btn" id="pinUnlockBtn">खोलो</button>
+      </div>
+    `;
+    const tryUnlock = () => {
+      const p = document.getElementById("pinUnlockInput").value.trim();
+      const err = document.getElementById("pinUnlockError");
+      if(simpleHash(p) === getPersonalPinHash()){
+        try{ sessionStorage.setItem(PERSONAL_SESSION_KEY, "1"); }catch(e){}
+        unlockPersonalArea();
+        playChime();
+      } else {
+        err.textContent = "गलत PIN, फिर कोशिश करो।";
+        playClick();
+      }
+    };
+    document.getElementById("pinUnlockBtn").addEventListener("click", tryUnlock);
+    document.getElementById("pinUnlockInput").addEventListener("keydown", (e) => { if(e.key === "Enter") tryUnlock(); });
+  }
+}
+
+function unlockPersonalArea(){
+  document.getElementById("personalLockedBox").style.display = "none";
+  document.getElementById("personalUnlockedArea").style.display = "block";
+  renderPersonalEntries();
+}
+function lockPersonalArea(){
+  try{ sessionStorage.removeItem(PERSONAL_SESSION_KEY); }catch(e){}
+  document.getElementById("personalUnlockedArea").style.display = "none";
+  document.getElementById("personalLockedBox").style.display = "block";
+  pendingPhotoDataUrl = null;
+  pendingVideoDataUrl = null;
+  document.getElementById("personalTitleInput").value = "";
+  document.getElementById("personalBodyInput").value = "";
+  document.getElementById("personalAttachPreview").innerHTML = "";
+  renderPersonalLockBox();
+}
+
+function renderPersonalEntries(){
+  const grid = document.getElementById("personalGrid");
+  const entries = getPersonalEntries();
+  grid.innerHTML = "";
+  if(entries.length === 0){
+    grid.innerHTML = '<div class="empty-personal">अभी कुछ भी नहीं लिखा है। ऊपर अपनी पहली बात लिखो।</div>';
+    return;
+  }
+  entries.slice().reverse().forEach(entry => {
+    const card = document.createElement("div");
+    card.className = "personal-note-card";
+    const photoHtml = entry.photo ? `<img class="note-photo" src="${entry.photo}">` : "";
+    const videoHtml = entry.video ? `<video class="note-video" controls src="${entry.video}"></video>` : "";
+    card.innerHTML = `
+      <h3>${entry.title || "बिना शीर्षक"}</h3>
+      <div class="note-date">${entry.date}</div>
+      ${photoHtml}
+      ${videoHtml}
+      <p></p>
+      <button class="note-delete">🗑️ हटाएं</button>
+    `;
+    card.querySelector("p").textContent = entry.body;
+    card.querySelector(".note-delete").addEventListener("click", () => {
+      const all = getPersonalEntries().filter(e2 => e2.id !== entry.id);
+      savePersonalEntries(all);
+      renderPersonalEntries();
+      playClick();
+    });
+    if(revealObserver){ revealObserver.observe(card); } else { card.classList.add("revealed"); }
+    grid.appendChild(card);
+  });
+}
+
+document.getElementById("personalAddBtn").addEventListener("click", () => {
+  const titleEl = document.getElementById("personalTitleInput");
+  const bodyEl = document.getElementById("personalBodyInput");
+  const title = titleEl.value.trim();
+  const body = bodyEl.value.trim();
+  if(!body){ bodyEl.focus(); return; }
+  const entries = getPersonalEntries();
+  entries.push({
+    id: "note_" + Date.now() + "_" + Math.random().toString(36).slice(2, 7),
+    title: title,
+    body: body,
+    photo: pendingPhotoDataUrl,
+    video: pendingVideoDataUrl,
+    date: new Date().toLocaleDateString("hi-IN", { day: "numeric", month: "long", year: "numeric" })
+  });
+  savePersonalEntries(entries);
+  titleEl.value = "";
+  bodyEl.value = "";
+  clearPersonalAttachments();
+  renderPersonalEntries();
+  playChime();
+});
+document.getElementById("personalLockBtn").addEventListener("click", () => {
+  lockPersonalArea();
+  playClick();
+});
+
+/* Photo/video attach for personal notes */
+let pendingPhotoDataUrl = null;
+let pendingVideoDataUrl = null;
+
+function renderAttachPreview(){
+  const box = document.getElementById("personalAttachPreview");
+  box.innerHTML = "";
+  if(pendingPhotoDataUrl){
+    const chip = document.createElement("span");
+    chip.className = "attach-chip";
+    chip.innerHTML = `<img src="${pendingPhotoDataUrl}"> फोटो जुड़ी <button id="removePhotoChip">✕</button>`;
+    box.appendChild(chip);
+    document.getElementById("removePhotoChip").addEventListener("click", () => {
+      pendingPhotoDataUrl = null; renderAttachPreview();
+    });
+  }
+  if(pendingVideoDataUrl){
+    const chip = document.createElement("span");
+    chip.className = "attach-chip";
+    chip.innerHTML = `🎥 वीडियो जुड़ी <button id="removeVideoChip">✕</button>`;
+    box.appendChild(chip);
+    document.getElementById("removeVideoChip").addEventListener("click", () => {
+      pendingVideoDataUrl = null; renderAttachPreview();
+    });
+  }
+}
+function clearPersonalAttachments(){
+  pendingPhotoDataUrl = null;
+  pendingVideoDataUrl = null;
+  renderAttachPreview();
+}
+
+document.getElementById("personalPhotoBtn").addEventListener("click", () => {
+  document.getElementById("personalPhotoInput").click();
+});
+document.getElementById("personalVideoBtn").addEventListener("click", () => {
+  document.getElementById("personalVideoInput").click();
+});
+document.getElementById("personalPhotoInput").addEventListener("change", (e) => {
+  const file = e.target.files && e.target.files[0];
+  if(!file) return;
+  resizeImage(file, (dataUrl) => {
+    pendingPhotoDataUrl = dataUrl;
+    renderAttachPreview();
+  });
+  e.target.value = "";
+});
+document.getElementById("personalVideoInput").addEventListener("change", (e) => {
+  const file = e.target.files && e.target.files[0];
+  if(!file) return;
+  const maxMB = 8;
+  if(file.size > maxMB * 1024 * 1024){
+    alert("यह वीडियो थोड़ा बड़ा है (" + maxMB + "MB से ज़्यादा)। ब्राउज़र में सीमित जगह होती है, इसलिए कृपया कोई छोटा वीडियो चुनें।");
+    e.target.value = "";
+    return;
+  }
+  const reader = new FileReader();
+  reader.onload = (ev) => {
+    pendingVideoDataUrl = ev.target.result;
+    renderAttachPreview();
+  };
+  reader.onerror = () => {
+    alert("वीडियो पढ़ने में दिक्कत आई, कृपया दोबारा कोशिश करें।");
+  };
+  reader.readAsDataURL(file);
+  e.target.value = "";
+});
+
+renderPersonalLockBox();
+if(isPersonalUnlockedThisSession()){
+  unlockPersonalArea();
+}
+document.getElementById("photoFileInput").addEventListener("change", (e) => {
+  const files = Array.from(e.target.files || []);
+  if(files.length === 0) return;
+  let remaining = files.length;
+  let addedCount = 0;
+  const g = getGallery();
+  files.forEach(file => {
+    resizeImage(file, (dataUrl) => {
+      if(dataUrl){
+        g.push({ id: "photo_" + Date.now() + "_" + Math.random().toString(36).slice(2, 7), src: dataUrl, caption: "" });
+        addedCount++;
+      }
+      remaining--;
+      if(remaining === 0){
+        saveGallery(g);
+        renderGallery();
+        if(addedCount > 0){ playChime(); }
+        else { alert("फोटो जोड़ने में दिक्कत आई। कृपया दोबारा कोशिश करें, या किसी दूसरी फोटो/ब्राउज़र से आज़माएं।"); }
+      }
+    });
+  });
+  e.target.value = "";
+});
+
+
+function renderCards(list, containerId){
+  const container = document.getElementById(containerId);
+  container.innerHTML = "";
+  list.forEach((item) => {
+    const card = document.createElement("div");
+    card.className = "card";
+    const bhaktHtml = item.bhakt ? `<div class="bhakt-line">🙏 ${item.bhakt}</div>` : "";
+    const isFav = getFavorites().includes(item.title);
+    card.innerHTML = `
+      <div class="card-head">
+        <div>
+          <h3>${item.title}</h3>
+          <div class="meta">${item.meta}</div>
+        </div>
+        <div class="card-head-actions">
+          <button class="fav-btn ${isFav ? 'active' : ''}" title="पसंदीदा में जोड़ें">${isFav ? '★' : '☆'}</button>
+          <div class="chevron">▾</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <p>${item.body}</p>
+        ${bhaktHtml}
+        <div class="rahasya-line">🔮 ${item.rahasya}</div>
+      </div>
+    `;
+    card.querySelector(".card-head").addEventListener("click", (e) => {
+      if(e.target.classList.contains("fav-btn")) return;
+      const wasOpen = card.classList.contains("open");
+      card.classList.toggle("open");
+      const body = card.querySelector(".card-body");
+      body.style.maxHeight = card.classList.contains("open") ? body.scrollHeight + 40 + "px" : 0;
+      if(!wasOpen) playChime();
+    });
+    card.querySelector(".fav-btn").addEventListener("click", (e) => {
+      e.stopPropagation();
+      toggleFavorite(item.title);
+      const btn = e.target;
+      btn.classList.toggle("active");
+      btn.textContent = btn.classList.contains("active") ? "★" : "☆";
+      playClick();
+      renderFavorites();
+    });
+    if(revealObserver){ revealObserver.observe(card); } else { card.classList.add("revealed"); }
+    container.appendChild(card);
+  });
+}
+
+renderCards(puranas, "puranaGrid");
+renderCards(granthList, "granthGrid");
+renderCards(devtaList, "devtaGrid");
+renderCards(rahasyaTopics, "rahasyaGrid");
+renderCards(yugTopics, "yugGrid");
+renderCards(manavTopics, "manavGrid");
+renderCards(gyanTopics, "gyanGrid");
+renderCards(guptTopics, "guptGrid");
+renderCards(jeevanTopics, "jeevanGrid");
+renderCards(tantraTopics, "tantraGrid");
+renderCards(bhaktCharitList, "bhaktcharitGrid");
+renderFavorites();
+
+document.querySelectorAll(".tab-btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+    const target = btn.dataset.view;
+    if(target === "fav") renderFavorites();
+    document.querySelectorAll("section.view").forEach(sec => sec.classList.remove("active"));
+    document.getElementById("view-" + target).classList.add("active");
+    document.getElementById("searchInput").value = "";
+    document.querySelectorAll(".card").forEach(c => c.classList.remove("hidden"));
+    const label = document.getElementById("currentSectionLabel");
+    if(label) label.textContent = btn.textContent.replace(/^⭐\s*/, "⭐ ");
+    closeDrawer();
+    playClick();
+  });
+});
+
+function openDrawer(){
+  document.getElementById("sideDrawer").classList.add("open");
+  document.getElementById("menuOverlay").classList.add("open");
+}
+function closeDrawer(){
+  document.getElementById("sideDrawer").classList.remove("open");
+  document.getElementById("menuOverlay").classList.remove("open");
+}
+document.getElementById("menuToggleBtn").addEventListener("click", openDrawer);
+document.getElementById("drawerCloseBtn").addEventListener("click", closeDrawer);
+document.getElementById("menuOverlay").addEventListener("click", closeDrawer);
+
+document.getElementById("searchInput").addEventListener("input", (e) => {
+  const q = e.target.value.trim().toLowerCase();
+  const activeView = document.querySelector("section.view.active");
+  activeView.querySelectorAll(".card").forEach(card => {
+    const text = card.textContent.toLowerCase();
+    card.classList.toggle("hidden", q.length > 0 && !text.includes(q));
+  });
+});
+
+/* ===== SADHNA STREAK ===== */
+function updateStreak(){
+  const today = new Date().toISOString().slice(0, 10);
+  let dates = [];
+  try{ dates = JSON.parse(localStorage.getItem("sadhnaDates")) || []; }catch(e){ dates = []; }
+  if(!dates.includes(today)){
+    dates.push(today);
+    try{ localStorage.setItem("sadhnaDates", JSON.stringify(dates)); }catch(e){}
+  }
+  let streak = 0;
+  let d = new Date();
+  while(true){
+    const key = d.toISOString().slice(0, 10);
+    if(dates.includes(key)){ streak++; d.setDate(d.getDate() - 1); } else { break; }
+  }
+  const badge = document.getElementById("streakBadge");
+  if(badge) badge.textContent = "🔥 साधना यात्रा: " + streak + " दिन";
+}
+updateStreak();
+
+/* ===== AAJ KA RAHASYA MODAL ===== */
+document.getElementById("randomRahasyaBtn").addEventListener("click", () => {
+  const item = ALL_TOPICS[Math.floor(Math.random() * ALL_TOPICS.length)];
+  document.getElementById("modalTitle").textContent = item.title;
+  document.getElementById("modalBody").textContent = item.body;
+  document.getElementById("modalRahasya").textContent = "🔮 " + item.rahasya;
+  document.getElementById("rahasyaModal").classList.add("open");
+  playChime();
+});
+document.getElementById("modalCloseBtn").addEventListener("click", () => {
+  document.getElementById("rahasyaModal").classList.remove("open");
+  playClick();
+});
+document.getElementById("rahasyaModal").addEventListener("click", (e) => {
+  if(e.target.id === "rahasyaModal") e.currentTarget.classList.remove("open");
+});
+
+/* ===== INTRO PORTAL DISMISS ===== */
+setTimeout(() => {
+  const overlay = document.getElementById("introOverlay");
+  if(overlay) overlay.classList.add("hide");
+}, 2200);
+
+/* ===== SHOOTING STARS ===== */
+function spawnShootingStar(){
+  const star = document.createElement("div");
+  star.className = "shooting-star";
+  star.style.top = (Math.random() * 40) + "vh";
+  star.style.left = (60 + Math.random() * 35) + "vw";
+  document.body.appendChild(star);
+  setTimeout(() => star.remove(), 1500);
+}
+setInterval(spawnShootingStar, 5000 + Math.random() * 4000);
+
+/* ===== CURSOR TRAIL (desktop only, throttled) ===== */
+let lastTrailTime = 0;
+const trailLayer = document.getElementById("cursorTrailLayer");
+document.addEventListener("mousemove", (e) => {
+  const now = Date.now();
+  if(now - lastTrailTime < 60) return;
+  lastTrailTime = now;
+  const spark = document.createElement("div");
+  spark.className = "trail-spark";
+  spark.style.left = e.clientX + "px";
+  spark.style.top = e.clientY + "px";
+  trailLayer.appendChild(spark);
+  setTimeout(() => spark.remove(), 900);
+});
+</script>
+</body>
+</html>
